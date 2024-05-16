@@ -1,8 +1,28 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  h3 Este es un #{text}
-  p Texto
-  p Este es un nuevo cambio
+
+  header.header
+    .logo-global 
+      img(src="../public/images/ciudadFondo.png")
+    .tabs-global
+      nav.menuNav 
+        ul.tabList 
+          li.tab
+            a(href="#") Home
+          li.tab
+            a(href="#") Transportes
+          li.tab
+            a(href="#") Blog
+  .body 
+    .body-global 
+      .body-text 
+        .body-text-title 
+          h1 #{titleViajes}
+        .body-text-description
+          p #{lorem}
+      .body-container
+        .body-container-child   
+          input(type="text", placeholder="Selecciona tu Destino...")
+
+
