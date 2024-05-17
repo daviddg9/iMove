@@ -1,10 +1,14 @@
 extends layout
 
+
 block content
+
+  head 
+    link(rel='stylesheet', href='../public/cssFA/all.min.css')
 
   header.header
     .logo-global 
-      img(src="../public/images/ciudadFondo.png")
+      img(src="../public/images/iMove_logo.png").logo
     .tabs-global
       nav.menuNav 
         ul.tabList 
@@ -18,6 +22,7 @@ block content
     .body-global 
       .body-text 
         .body-text-title 
+          i.fa-car-side
           h1 #{titleViajes}
         .body-text-description
           p #{lorem}
