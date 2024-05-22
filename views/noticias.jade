@@ -1,28 +1,27 @@
-extends layout
+doctype html
+html
+  head
+    title= "title"
+    link(rel='stylesheet', href='/stylesheets/noticias.css')
+    link(rel='stylesheet', href='/stylesheets/commonStyles.css')
 
 
-block content
-
-  head 
-    link(rel='stylesheet', href='../public/stylesheets/noticias.css')
-
-  header.header
-    .logo-global 
-      img(src="../public/images/iMove_logo.png").logo
-    .tabs-global
-      nav.menuNav 
-        ul.tabList 
-          li.tab
-            a(href="#") Home
-          li.tab
-            a(href="#") Transportes
-          li.tab
-            a(href="#") Noticias
-
-  .body
-    .divGlobal 
-      .divContent 
-      h1 #{title}
-        .divText
-          
- 
+  body
+    block content
+      header.header
+        .logo-global 
+          img(src="../public/images/iMove_logo.png").logo
+        .tabs-global
+          nav.menuNav 
+            ul.tabList 
+              li.tab
+                a(href="../") Home
+              li.tab
+                a(href="#") Transportes
+              li.tab
+                a(href="./noticias/") Noticias
+        .body
+          .divGlobal 
+            .divContent 
+            h1 #{title}
+              .divText

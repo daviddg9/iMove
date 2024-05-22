@@ -1,33 +1,38 @@
-extends layout
+doctype html
+html
+  head
+    title= "title"
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/commonStyles.css')
 
+  body
+    block content
 
-block content
+      head 
+        link(rel='stylesheet', href='../public/stylesheets/style.css')
 
-  head 
-    link(rel='stylesheet', href='../public/stylesheets/style.css')
-
-  header.header
-    .logo-global 
-      img(src="../public/images/iMove_logo.png").logo
-    .tabs-global
-      nav.menuNav 
-        ul.tabList 
-          li.tab
-            a(href="#") Home
-          li.tab
-            a(href="#") Transportes
-          li.tab
-            a(href="./noticias/") Noticias
-  .body 
-    .body-global 
-      .body-text 
-        .body-text-title 
-          i.fa-car-side
-          h1 #{titleViajes}
-        .body-text-description
-          p #{lorem}
-      .body-container
-        .body-container-child   
-          input(type="text", placeholder="Selecciona tu Destino...")
+      header.header
+        .logo-global 
+          img(src="../public/images/iMove_logo.png").logo
+        .tabs-global
+          nav.menuNav 
+            ul.tabList 
+              li.tab
+                a(href="#") Home
+              li.tab
+                a(href="#") Transportes
+              li.tab
+                a(href="./noticias/") Noticias
+      .body 
+        .body-global 
+          .body-text 
+            .body-text-title 
+              i.fa-car-side
+              h1 #{titleViajes}
+            .body-text-description
+              p #{lorem}
+          .body-container
+            .body-container-child   
+              input(type="text", placeholder="Selecciona tu Destino...")
 
 
