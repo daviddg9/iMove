@@ -1,30 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto&family=Roboto+Mono&display=swap');
 
-
-body {
-    font-family: Arial, sans-serif;
+/*
+.body{
+    background-color: grey;
+    background-size: cover;
+    background-repeat: no-repeat;
     margin: 0;
-    padding: 0;
-    background-color: grey; /* Fondo gris */
-    color: whitesmoke; /* Color de texto oscuro para buena legibilidad */
-}
-
-.title-container{
-    text-align: center;
-    padding: 1.25rem 0; 
-    background-color: #fff; /* Fondo blanco para el título */
-    margin-bottom: 1.25rem; /*  separación debajo del título */
-    
-}
-
-.title-container h1 {
-    margin: 0;
-    font-size: 2rem; /* 32px */
-    color: #222; /* Color del título */
-}
-  
-.news-container {
-    display: flex;
-    flex-direction: column;
-    padding: 1.25rem; 
-}
+}*/
