@@ -1,66 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto&family=Roboto+Mono&display=swap');
 
-body {
-    font-family: Arial, sans-serif;
+/*
+.body{
+    background-color: grey;
+    background-size: cover;
+    background-repeat: no-repeat;
     margin: 0;
-    padding: 0;
-    background-color: #808080;
-}
-  
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 1rem;
-}
-  
-.page-title {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: #fff;
-}
-  
-.news-container {
-    background-color: #808080;
-    padding: 1rem;
-    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.1);
-}
-  
-.news-item {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 1rem;
-}
-  
-.news-image {
-    width: 8rem;
-    height: auto;
-    margin-right: 1rem;
-}
-  
-.news-content {
-    flex: 1;
-}
-  
-.news-title {
-    font-size: 1.2rem;
-    color: #0078d4;
-    margin: 0;
-}
-  
-.news-date {
-    font-size: 0.8rem;
-    color: white;
-    margin: 0.5rem 0;
-}
-  
-.news-description {
-    font-size: 1rem;
-    color: white;
-    margin: 0;
-}
-  
-.divider {
-    border: 0;
-    border-top: 0.3125rem solid white;
-    margin: 1rem 0;
-}
+}*/
