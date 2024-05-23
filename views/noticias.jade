@@ -1,10 +1,10 @@
-extends layout
-
-
-block content
-
-  head 
-    link(rel='stylesheet', href='../public/stylesheets/noticias.css')
+doctype html
+html
+  head
+    title= "iMove"
+    link(rel='stylesheet', href='/stylesheets/noticias.css')
+  body
+    block content
 
   header.header
     .logo-global 
@@ -20,9 +20,13 @@ block content
             a(href="#") Noticias
 
   .body
-    .divGlobal 
-      .divContent 
-      h1 #{title}
-        .divText
+    .title-cotainer
+    h1 #{title}
+      .news-container
+      .news-item
+
+        .news-content
+        
+
           
  
