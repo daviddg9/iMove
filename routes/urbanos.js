@@ -4,12 +4,11 @@ var router = express.Router();
 
 router.get('/', function(req, res, next) {
     res.render('urbanos', {
-      title: "Nuestras noticias",
-      titleNoticia: 'Innovaciones tecnológicas en el transporte público en 2023',
-      fecha : '04/05/24',
-      noticia: 'En 2023, el transporte público se enfrenta a numerosos desafíos que están siendo abordados mediante innovaciones tecnológicas. Desde la implementación de sistemas de pago sin contacto hasta la incorporación de vehículos eléctricos y autónomos, las ciudades están adoptando soluciones tecnológicas para mejorar la eficiencia y la sostenibilidad del transporte público ',
-
-      
+      placeholderText : "Código de parada",
+      buttonTextSearch : "Buscar",
+      instructionText1 : "Busca el código de la parada en la marquesina",
+      instructionText2 : "Si no lo encuentras busca en estas seccion",
+      buttonTextHorario : "Horario",
     
     
     

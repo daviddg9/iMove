@@ -8,7 +8,7 @@ html
 
   header.header
     .logo-global 
-      img(src="../public/images/iMove_logo.png").logo
+      img(src="/images/iMove_logo.png").logo
     .tabs-global
       nav.menuNav 
         ul.tabList 
@@ -27,7 +27,9 @@ html
         .body-text-description
           p #{lorem}
       .body-container
-        .body-container-child   
-          input(type="text", placeholder="Selecciona tu Destino...")
+        .input-container
+          input(type="text", placeholder="Selecciona tu destino").inp
+          button.bot
+            img(src="/images/Lupa.png", alt="").lupa
 
 
