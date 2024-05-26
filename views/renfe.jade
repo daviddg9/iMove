@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title= "iMove"
+    link(rel='stylesheet', href='/stylesheets/renfe.css')
+  body
+    block content
+
+  header.header
+    .logo-global 
+      img(src="../public/images/iMove_logo.png").logo
+    .tabs-global
+      nav.menuNav 
+        ul.tabList 
+          li.tab
+            a(href="../") Home
+          li.tab
+            a(href="./interurbanos/") Transportes
+          li.tab
+            a(href="#") Noticias

@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    title= "iMove"
+    link(rel='stylesheet', href='/stylesheets/urbanos.css')
+  body
+    block content
+
+    header.header
+        .logo-global 
+        img(src="/images/iMove_logo.png").logo
+        .tabs-global
+        nav.menuNav 
+            ul.tabList 
+            li.tab
+                a(href="../") Home
+            li.tab
+                a(href="#") Transportes
+            li.tab
+                a(href="#") Noticias
+    
+    .container
+        .search-bar
+            input(type="text", placeholder=placeholderText).inp
+            button.bus= buttonTextSearch
+        p= instructionText1
+        p= instructionText2
+        .button-container
+            button.but= buttonTextHorario

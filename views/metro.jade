@@ -1,0 +1,34 @@
+doctype html
+html
+  head
+    title= "iMove"
+    link(rel='stylesheet', href='/stylesheets/metro.css')
+  body
+    block content
+
+  header
+    .logo-global 
+      img(src="/images/iMove_logo.png").logo
+    .tabs-global
+      nav.menuNav 
+        ul.tabList 
+          li.tab
+            a(href="../") Home
+          li.tab
+            a(href="./interurbanos/") Transportes
+          li.tab
+            a(href="#") Noticias 
+  
+  .container
+      .header
+        button.btn Cómo llegar
+      .input-container
+        input(type='text', placeholder='Nombre de parada').input
+        button.search-btn
+          img(src="/images/horario.jpg")
+      .stops
+          .stop
+            .icon
+              img(src="/images/metro.png")
+            p.name= name
+            p.line= line
