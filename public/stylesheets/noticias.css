@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto&family=Roboto+Mono&display=swap');
 
+
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #808080;
+    background-color: #131313;
 }
   
 .container {
@@ -20,7 +22,7 @@ body {
 }
   
 .news-container {
-    background-color: #808080;
+    
     padding: 1rem;
     box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.1); 
 }
@@ -63,4 +65,8 @@ body {
     border: 0;
     border-top: 0.3125rem solid white;
     margin: 1rem 0;
+}
+
+.ima{
+    width: 30rem;
 }

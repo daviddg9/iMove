@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto&family=Roboto+Mono&display=swap');
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: grey;
+    color: #b74d38;
+    margin: 0;
+    padding: 0;
+}
+  
+.app {
+    padding: 1.25rem;
+}
+  
+.header h1 {
+    text-align: center;
+}
+  
+.options {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.25rem; 
+}
+  
+.horario {
+    background-color: #b74d38;
+    color: #fff;
+    border: none;
+    padding: 0.625rem 1.25rem; 
+    margin: 0 0.3125rem; 
+    cursor: pointer;
+    border-radius: 0.3125rem; 
+}
+  
+.paradas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+input {
+    width: 80%;
+    padding: 0.625rem; 
+    margin-bottom: 1.25rem; 
+    border: 1px solid white;
+    border-radius: 0.3125rem; 
+    background-color: white;
+    color: #fff;
+}
+  
+.station-list {
+    list-style-type: none;
+    padding: 0; 
+}
+  
+.station {
+    display: flex;
+    align-items: center;
+    padding: 0.625rem; 
+    border-bottom: 0.0625rem solid #ccc; 
+}
+  
+.icon {
+    width: 1.875rem; 
+    height: 1.875rem; 
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.625rem;
+}
+  
+.station-name {
+    flex-grow: 1;
+}
+  
+.station-number {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 50%;
+    width: 1.25rem; 
+    height: 1.25rem; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem; 
+}
+  
+  
+
+  
+  

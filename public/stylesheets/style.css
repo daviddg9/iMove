@@ -87,7 +87,6 @@ body {
   width: 10rem;
   height: 10rem;
 }
-
 .input-container {
   display: flex;
   align-items: center;
@@ -96,7 +95,8 @@ body {
   overflow: hidden;
   box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); 
 }
-.inp {
+
+.textoinp {
   background-color: white;
   border: none;
   padding: 0.625rem 1.25rem; 
@@ -105,7 +105,7 @@ body {
   flex: 1;
 }
 
-.bot {
+.boto{
   background-color: white; 
   border: none;
   padding: 0.625rem; 
@@ -119,10 +119,7 @@ body {
 .lupa {
   width: 1.25rem; 
   height: 1.25rem; 
-  
 }
-
-
 
 
 

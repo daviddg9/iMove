@@ -8,14 +8,14 @@ html
 
   header.header
     .logo-global 
-      img(src="/images/iMove_logo.png").logo
+      img(src="../public/images/iMove_logo.png").logo
     .tabs-global
       nav.menuNav 
         ul.tabList 
           li.tab
             a(href="#") Home
           li.tab
-            a(href="./urbanos/") Transportes
+            a(href="./interurbanos/") Transportes
           li.tab
             a(href="./noticias/") Noticias
   .body 
@@ -27,9 +27,8 @@ html
         .body-text-description
           p #{lorem}
       .body-container
-        .input-container
-          input(type="text", placeholder="Selecciona tu destino").inp
-          button.bot
-            img(src="/images/Lupa.png", alt="").lupa
-
+      .input-container
+        input(type="text", placeholder="Elija su destino").textoinp
+        button.boto
+          img(src="/images/lupa.png", alt="").lupa
 
