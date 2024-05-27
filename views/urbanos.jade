@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title= "iMove"
+    link(rel='stylesheet', href='/stylesheets/urbanos.css')
+  body
+    block content
+    
+    .container
+        .search-bar
+            input(type="text", placeholder=placeholderText).inp
+            button.bus= buttonTextSearch
+        p= instructionText1
+        p= instructionText2
+        .button-container
+            button.but= buttonTextHorario

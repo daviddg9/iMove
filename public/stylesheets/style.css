@@ -37,6 +37,40 @@ body {
   width: 10rem;
   height: 10rem;
 }
+.input-container {
+  display: flex;
+  align-items: center;
+  background-color: white; 
+  border-radius: 1.5625rem; 
+  overflow: hidden;
+  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); 
+}
+
+.textoinp {
+  background-color: white;
+  border: none;
+  padding: 0.625rem 1.25rem; 
+  border-radius: 1.5625rem 0 0 1.5625rem; 
+  outline: none;
+  flex: 1;
+}
+
+.boto{
+  background-color: white; 
+  border: none;
+  padding: 0.625rem; 
+  border-radius: 0 1.5625rem 1.5625rem 0; 
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lupa {
+  width: 1.25rem; 
+  height: 1.25rem; 
+}
+
 
 
 
