@@ -1,6 +1,6 @@
 var express = require('express');
 
-class DAO {
+class RenfeDAO {
     // Attributes
     dato1 = "";
     dato2 = "hola";
@@ -29,6 +29,4 @@ class DAO {
     }
 }
 
-DAO.dato2;
-
-module.exports = DAO;
+module.exports = RenfeDAO;
