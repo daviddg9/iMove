@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    title= "iMove"
+    link(rel='stylesheet', href='/stylesheets/metro.css')
+  body
+    block content
+    .app
+      .header
+        h1 Metro
+    .options
+      button.horario Horario
+    .paradas
+      input(type='text', placeholder='Nombre de parada').input
+
+    ul.station-list
+      li.station
+        img(src="/images/metro.png", alt="").icon
+        .station-name Abrantes
+        .station-number 11
+      li.station
+        img(src="/images/metro.png", alt="").icon
+        .station-name Acacias
+        .station-number 5
+      li.station
+        img(src="/images/metro.png", alt="").icon
+        .station-name Aeropuerto T-4
+        .station-number 8
