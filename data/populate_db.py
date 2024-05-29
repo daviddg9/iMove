@@ -4,13 +4,13 @@ import mysql.connector
 mydb = mysql.connector.connect(
   host="localhost",
   user="USER",
-  password="PASS",
+  password="PASSWORD",
   database="IMOVE"
 )
 
 mycursor = mydb.cursor()
 
-prefix = 'PATH_AL_DIRECTORIO_CON_LOS_DOCS_DE_TEXTO'
+prefix = 'PATH_A_LOS_DOCUMENTOS_CON_LOS_DATOS_EN_CRUDO'
 categories = ['routes', 'stops', 'trips', 'stop_times']
 insert_headers = {}
 insert_data = {}
@@ -36,7 +36,7 @@ def insert_into_db(table_name: str, headers: list, data: list):
         #print(sql)
         mycursor.execute(sql)
     mydb.commit()
-    print(f"rows insertadas con exito! [{table_name}].")
+    print(f"rows insertadas con exito! [{table_name}] ({mycursor.rowcount}).")
 
 for cat in categories:
     read_data(cat, prefix + cat + ".txt")
