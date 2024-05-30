@@ -1,28 +1,8 @@
-doctype html
-html
-  head
-    title= "iMove"
-    link(rel='stylesheet', href='/stylesheets/transportePublico.css')
-    link(rel='stylesheet', href='/stylesheets/commonStyles.css')
-    link(rel='stylesheet', href='/stylesheets/normalize.css')
-  body
+- css_title= "transportePublico"
 
-    header.header
-      .logo-global 
-        img(src="/images/iMove_logo.png").logo
-      .tabs-global
-        nav.menuNav 
-          ul.tabList 
-            li.tab
-              a(href="#") Home
-            li.tab
-              .dropdown
-                button.dropdown-button Transportes 
-                .dropdown-options
-                  a(href="#") Públicos
-                  a(href="#") Privados
-            li.tab
-              a(href="/noticias/") Noticias
+include head.jade
+  body
+    include header.jade 
     .body 
       .body-global
           .tabs
