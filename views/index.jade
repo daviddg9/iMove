@@ -1,38 +1,16 @@
-doctype html
-html
-  head
-    title= "iMove"
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/commonStyles.css')
-    link(rel='stylesheet', href='/stylesheets/normalize.css')
+- css_title= "style"
+
+include head.jade
   body
-
-  header.header
-    .logo-global 
-      img(src="/images/iMove_logo.png").logo
-    .tabs-global
-      nav.menuNav 
-        ul.tabList 
-          li.tab
-            a(href="#") Home
-          li.tab
-            .dropdown
-              button.dropdown-button Transportes 
-              .dropdown-options
-                a(href="/transportePublico") Públicos
-                a(href="#") Privados
-          li.tab
-            a(href="/noticias/") Noticias
-  .body 
-    .body-global 
-      .body-text 
-        .body-text-title 
-          i.fa-car-side
-          h1 #{titleViajes}
-        .body-text-description
-          p #{lorem}
-      .body-container
-        .body-container-child   
-          input(type="text", placeholder="Selecciona tu Destino...")
-
-
+    include header.jade 
+    .body 
+      .body-global 
+        .body-text 
+          .body-text-title 
+            i.fa-car-side
+            h1 #{titleViajes}
+          .body-text-description
+            p #{lorem}
+        .body-container
+          .body-container-child   
+            input(type="text", placeholder="Selecciona tu Destino...")
