@@ -1,4 +1,3 @@
-
 doctype html
 html
   head
@@ -8,17 +7,20 @@ html
   body
     block content
 
-
   header.header
     .logo-global 
-      img(src="../public/images/iMove_logo.png").logo
+      img(src="/images/iMove_logo.png",).logo
     .tabs-global
       nav.menuNav 
         ul.tabList 
           li.tab
             a(href="#") Home
           li.tab
-            a(href="#") Transportes
+            .dropdown
+              button.dropdown-button Transportes 
+              .dropdown-options
+                a(href="#") Públicos
+                a(href="#") Privados
           li.tab
             a(href="/noticias/") Noticias
   .body 
