@@ -1,0 +1,128 @@
+body{
+    background-image:  url(../images/fondoTransPublico.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.body{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    
+
+}
+
+.body-global{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.tabs{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 90%;
+    background-color: rgb(69, 69, 69, 0.8);
+    height: 18rem;
+    width: 80%;
+    border-radius: 15px;
+}
+
+.tabs > a{
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.tabs > a:hover {
+    transform: scale(1.05); /* Escala el botón a 1.05 veces su tamaño original */
+}
+
+
+.interurbanosTab{
+    background-color: #56c421;
+    border-radius: 15px;
+    width: 12rem;
+    height: 12rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.interurbanosTab > img{
+    width: 45%;
+    height: 45%;
+}
+
+.metroTab{
+    background-color: rgb(9, 72, 146);
+    border-radius: 15px;
+    width: 12rem;
+    height: 12rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.metroTab > img{
+    width: 45%;
+    height: 45%;
+}
+
+.renfeTab{
+    background-color: rgb(255, 0, 0);
+    border-radius: 15px;
+    width: 12rem;
+    height: 12rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.renfeTab > img{
+    width: 45%;
+    height: 40%;
+}
+
+.busesTab{
+    background-color: rgb(16, 169, 13);
+    border-radius: 15px;
+    width: 12rem;
+    height: 12rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.busesTab > img{
+    width: 45%;
+    height: 45%;
+    
+}
+
+
+.emtTab{
+    background-color: rgb(31, 110, 170);
+    border-radius: 15px;
+    width: 12rem;
+    height: 12rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.emtTab > img{
+    width: 45%;
+    height: 45%;
+}
