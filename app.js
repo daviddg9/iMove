@@ -31,9 +31,9 @@ app.use('/users', usersRouter);
 app.use('/noticias', noticiasRouter);
 app.use('/interurbanos', interurbanosRouter);
 app.use('/urbanos', urbanosRouter);
-app.use('/renfe', renfesRouter);
 app.use('/metro', metroRouter);
 app.use('/transportePublico', transPubRouter);
+app.use('/transportePublico/renfe', renfesRouter);
 
 
 

@@ -27,7 +27,7 @@ class DAO {
         this.connection = await mysql.createConnection(this.connectionData);
     }
 
-    async getAllStops(where="") {
+    async getStops(where="") {
         if (this.connection == null)
             await this.connect()
         let listaStops = []
@@ -35,13 +35,30 @@ class DAO {
         if (where.length > 0)
             sql += " WHERE " + where;
         sql += ";";
-        // TODO: Checkear errores
         console.log("QUERY " + sql);
+        // TODO: Checkear errores
         const [results] = await this.connection.execute(sql);
         results.forEach(dbStop => {
             listaStops.push(Stop.fromInstance(dbStop));
         });
         return listaStops;
+    }
+
+    async getRoutes(where="") {
+        if (this.connection == null)
+            await this.connect()
+        let listaRoutes = []
+        let sql = "SELECT * FROM ROUTES";
+        if (where.length > 0)
+            sql += " WHERE " + where;
+        sql += ";";
+        console.log("QUERY " + sql);
+        // TODO: Checkear errores
+        const [results] = await this.connection.execute(sql);
+        results.forEach(dbRoute => {
+            listaRoutes.push(Route.fromInstance(dbRoute));
+        });
+        return listaRoutes;
     }
 }
 

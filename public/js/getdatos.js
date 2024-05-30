@@ -3,7 +3,7 @@
 async function printStops() {
     let dao = new DAO();
 
-    let stops = await dao.getAllStops();
+    let stops = await dao.getStops();
     
     console.log(stops);    
 }

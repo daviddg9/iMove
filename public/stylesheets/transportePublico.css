@@ -2,7 +2,8 @@ body{
     background-image:  url(../images/fondoTransPublico.png);
     background-repeat: no-repeat;
     background-size: cover;
-
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
 }
 
 .body{
