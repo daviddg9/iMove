@@ -6,29 +6,31 @@ html
     link(rel='stylesheet', href='/stylesheets/commonStyles.css')
     link(rel='stylesheet', href='/stylesheets/normalize.css')
   body
-    block content
 
-
-  header.header
-    .logo-global 
-      img(src="../public/images/iMove_logo.png").logo
-    .tabs-global
-      nav.menuNav 
-        ul.tabList
-          li.tab
-            a(href="#") Home
-          li.tab
-            a(href="#") Transportes
-          li.tab
-            a(href="./noticias/") Noticias
-  .body 
-    .body-global
-        .tabs
-            a.interurbanosTab(href="#")
-              img(src="/images/busIcon.png", alt="")
-            a.emtTab(href="#")
-              img(src="/images/logoEMT.svg", alt="")
-            a.metroTab(href="#")
-              img(src="/images/metroWhite.png", alt="")
-            a.renfeTab(href="/transportePublico/renfe")
-              img(src="/images/renfeLogo.png", alt="")
+    header.header
+      .logo-global 
+        img(src="../public/images/iMove_logo.png").logo
+      .tabs-global
+        nav.menuNav 
+          ul.tabList 
+            li.tab
+              a(href="#") Home
+            li.tab
+              .dropdown
+                button.dropdown-button Transportes 
+                .dropdown-options
+                  a(href="#") Públicos
+                  a(href="#") Privados
+            li.tab
+              a(href="/noticias/") Noticias
+    .body 
+      .body-global
+          .tabs
+              a.interurbanosTab(href="#")
+                img(src="/images/busIcon.png", alt="")
+              a.emtTab(href="#")
+                img(src="/images/logoEMT.svg", alt="")
+              a.metroTab(href="#")
+                img(src="/images/metroWhite.png", alt="")
+              a.renfeTab(href="#")
+                img(src="/images/renfeLogo.png", alt="")

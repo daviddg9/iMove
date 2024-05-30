@@ -4,11 +4,10 @@ import mysql.connector
 
 # Leer vars del dotenv
 dotenv = {}
-with open("/home/sdiezg/Projects/iMove/.env", mode="r") as dt:
+with open("C:\\Users\\Usuario\\Desktop\\iMove\\iMove\\.env", mode="r") as dt:
     dotenv_reader = csv.reader(dt, delimiter="=")
     for dotenv_field in dotenv_reader:
         dotenv[str(dotenv_field[0])] = str(dotenv_field[1])
-
 
 mydb = mysql.connector.connect(
   host=dotenv["DB_HOST"],
@@ -19,7 +18,7 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
-prefix = '/home/sdiezg/Projects/iMove/data/fomento_transit/'
+prefix = 'C:\\Users\\Usuario\\Desktop\\iMove\\iMove\\data\\fomento_transit\\'
 categories = ['routes', 'stops', 'trips', 'stop_times']
 insert_headers = {}
 insert_data = {}

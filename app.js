@@ -5,14 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var noticiasRouter = require('./routes/noticias');
-var interurbanosRouter = require('./routes/interurbanos');
-var urbanosRouter = require('./routes/urbanos');
-var usersRouter = require('./routes/users');
-var renfesRouter = require('./routes/renfe');
-var metroRouter = require('./routes/metro');
 var transPubRouter = require('./routes/transportePublico');
-
-
 
 var app = express();
 
@@ -27,16 +20,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/noticias', noticiasRouter);
-app.use('/interurbanos', interurbanosRouter);
-app.use('/urbanos', urbanosRouter);
-app.use('/metro', metroRouter);
 app.use('/transportePublico', transPubRouter);
-app.use('/transportePublico/renfe', renfesRouter);
-
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

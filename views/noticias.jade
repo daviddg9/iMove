@@ -7,19 +7,19 @@ html
   body 
     block content
 
-    .logo-global 
-      img(src="../public/images/iMove_logo.png").logo
     .tabs-global
       nav.menuNav 
         ul.tabList 
           li.tab
-            a(href="../") Home
+            a(href="#") Home
           li.tab
-            a(href="#") Transportes
+            .dropdown
+              button.dropdown-button Transportes 
+              .dropdown-options
+                a(href="#") Públicos
+                a(href="#") Privados
           li.tab
-            a(href="#") Noticias
-
-          
+            a(href="/noticias/") Noticias
 
   .container
   h1.page-title Nuestras noticias
