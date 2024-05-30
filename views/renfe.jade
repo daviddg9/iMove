@@ -14,15 +14,9 @@ html
       input(type='text', placeholder='Nombre de parada').input
 
     ul.station-list
-      li.station
-        img(src="/images/metro.png", alt="").icon
-        .station-name Abrantes
-        .station-number 11
-      li.station
-        img(src="/images/metro.png", alt="").icon
-        .station-name Acacias
-        .station-number 5
-      li.station
-        img(src="/images/metro.png", alt="").icon
-        .station-name Aeropuerto T-4
-        .station-number 8
+      each stop in stops
+        li.station
+          img(src="/images/metro.png", alt="").icon
+          .station-name #{stop.STOP_NAME}
+          .station-number #{stop.STOP_ID}
+  

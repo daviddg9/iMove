@@ -54,4 +54,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.set("dotenv", require("dotenv").config().parsed);
+
 module.exports = app;

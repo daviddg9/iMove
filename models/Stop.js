@@ -1,5 +1,3 @@
-
-/** 
 var express = require('express');
 
 class Stop {
@@ -10,15 +8,20 @@ class Stop {
     STOP_LON = ""
 
     // Constructor
-    constructor(inst) {
-        inst && Object.assign(this, inst);
-    }
     
     constructor(STOP_ID, STOP_NAME, STOP_LAT, STOP_LON) {
         this.STOP_ID = STOP_ID;
         this.STOP_NAME = STOP_NAME;
         this.STOP_LAT = STOP_LAT;
         this.STOP_LON = STOP_LON;
+    }
+
+    static fromInstance(inst) {
+        if (!inst)
+            return null;
+        let stop = new Stop("", "", "", "");
+        Object.assign(stop, inst);
+        return stop;
     }
 
     // Getters and Setters
@@ -32,8 +35,9 @@ class Stop {
     // }
 
     // Methods
+    toString() {
+        return "(" + this.STOP_ID + ", " + this.STOP_NAME + ", " + this.STOP_LAT + ", " + this.STOP_LON + ")";
+    }
 }
 
 module.exports = Stop;
-
-*/

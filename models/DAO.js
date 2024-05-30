@@ -1,44 +1,45 @@
 var express = require('express');
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 const Stop = require('./Stop');
 
 class DAO {
     // Attributes
     connectionData = {
-        host: "localhost",
-        user: "root",
-        password: "Starcraft2",
-        database: "IMOVE"
+        host: "",
+        user: "",
+        password: "",
+        database: ""
     }
-
     connection = null
 
     // Constructor
-    constructor() {
-        this.connection = mysql.createConnection(this.connectionData);
-        this.connection.connect();
-        // TODO: Comprobar que se ha conectado bien.
+    constructor(host, user, password, database) {
+        this.connectionData = {
+            host: host,
+            user: user,
+            password: password,
+            database: database
+        }
     }
 
-    // Getters and Setters
-    // get dato2() {
-    //     this.dato2 = this.dato2 + " modificado";
-    //     return this.dato2;
-    // }
-
-    // set dato2(val) {
-    //     this.dato2 = val;
-    // }
-
     // Methods
-    getAllStops() {
-        // TODO: Comprobar conexion
+    async connect() {
+        this.connection = await mysql.createConnection(this.connectionData);
+    }
+
+    async getAllStops(where="") {
+        if (this.connection == null)
+            await this.connect()
         let listaStops = []
-        this.connection.query("SELECT * FROM STOPS;", (err, rows, fields) => {
-            if (err) throw err;
-            rows.forEach(dbStop => {
-                listaStops.push(new Stop(dbStop));
-            });
+        let sql = "SELECT * FROM STOPS";
+        if (where.length > 0)
+            sql += " WHERE " + where;
+        sql += ";";
+        // TODO: Checkear errores
+        console.log("QUERY " + sql);
+        const [results] = await this.connection.execute(sql);
+        results.forEach(dbStop => {
+            listaStops.push(Stop.fromInstance(dbStop));
         });
         return listaStops;
     }

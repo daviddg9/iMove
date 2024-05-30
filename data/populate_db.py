@@ -1,16 +1,25 @@
 import csv
+from isort import file
 import mysql.connector
 
+# Leer vars del dotenv
+dotenv = {}
+with open("/home/sdiezg/Projects/iMove/.env", mode="r") as dt:
+    dotenv_reader = csv.reader(dt, delimiter="=")
+    for dotenv_field in dotenv_reader:
+        dotenv[str(dotenv_field[0])] = str(dotenv_field[1])
+
+
 mydb = mysql.connector.connect(
-  host="localhost",
-  user="USER",
-  password="PASSWORD",
-  database="IMOVE"
+  host=dotenv["DB_HOST"],
+  user=dotenv["DB_USER"],
+  password=dotenv["DB_PASS"],
+  database=dotenv["DB_NAME"]
 )
 
 mycursor = mydb.cursor()
 
-prefix = 'PATH_A_LOS_DOCUMENTOS_CON_LOS_DATOS_EN_CRUDO'
+prefix = '/home/sdiezg/Projects/iMove/data/fomento_transit/'
 categories = ['routes', 'stops', 'trips', 'stop_times']
 insert_headers = {}
 insert_data = {}
