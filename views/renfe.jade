@@ -1,24 +1,8 @@
-doctype html
-html
-  head
-    title= "iMove"
-    link(rel='stylesheet', href='/stylesheets/renfe.css')
-  body
-    block content
+- css_title= "renfe"
 
-    .tabs-global
-      nav.menuNav 
-        ul.tabList 
-          li.tab
-            a(href="#") Home
-          li.tab
-            .dropdown
-              button.dropdown-button Transportes 
-              .dropdown-options
-                a(href="#") Públicos
-                a(href="#") Privados
-          li.tab
-            a(href="/noticias/") Noticias
+include head.jade
+  body
+    include header.jade
     .app
       .header
         h1 Cercanias
