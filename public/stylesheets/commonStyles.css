@@ -1,50 +1,51 @@
 .header {
-    display: flex;
-    flex-direction: row;
-    height: 3.5rem;
-    /* Añade sombra interna en la parte superior e inferior */
-    box-shadow: inset 0 7px 10px -10px #000, /* Sombra superior */
-                inset 0 -10px 7px -10px #000; /* Sombra inferior */
-  }
-  
-  .logo-global {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  
-  }
-  
-  .tabList {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-evenly;
-  }
-  
-  .tab {
-    list-style: none;
-  }
-  
-  .tab>a {
-    text-decoration: none;
-    color: white;
-    text-shadow: 3px 3px 12px rgb(0, 0, 0);
-  }
-  
-  .tab>a:hover {
-    font-size: 17px;
-  }
-  
-  .logo-global {
-    width: 60%;
-  
-  }
-  
-  .tabs-global {
-    width: 30%;
-    font-family: Montserrat;
-    font-weight: 700;
-  
-  }
-  
+  display: flex;
+  flex-direction: row;
+  height: 3.5rem;
+  /* Añade sombra interna en la parte superior e inferior */
+  box-shadow: inset 0 7px 10px -10px #000, /* Sombra superior */
+              inset 0 -10px 7px -10px #000; /* Sombra inferior */
+}
+
+.logo-global {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.tabList {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+
+.tab {
+  list-style: none;
+  cursor: pointer;
+  transition: transform 0.3s ease; /* Transición suave */
+}
+
+.tab:hover {
+  transform: scale(1.05); /* Escala el botón a 1.2 veces su tamaño original */
+}
+
+.tab>a {
+  text-decoration: none;
+  color: white;
+  text-shadow: 3px 3px 12px rgb(0, 0, 0);
+}
+
+.logo-global {
+  width: 60%;
+
+}
+
+.tabs-global {
+  width: 30%;
+  font-family: Montserrat;
+  font-weight: 700;
+
+}
+

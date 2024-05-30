@@ -10,6 +10,7 @@ var urbanosRouter = require('./routes/urbanos');
 var usersRouter = require('./routes/users');
 var renfesRouter = require('./routes/renfe');
 var metroRouter = require('./routes/metro');
+var transPubRouter = require('./routes/transportePublico');
 
 
 
@@ -32,6 +33,8 @@ app.use('/interurbanos', interurbanosRouter);
 app.use('/urbanos', urbanosRouter);
 app.use('/renfe', renfesRouter);
 app.use('/metro', metroRouter);
+app.use('/transportePublico', transPubRouter);
+
 
 
 
