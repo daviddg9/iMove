@@ -32,7 +32,9 @@ router.get('/renfe/paradaRenfe', async function(req, res, next) {
     // TODO: lanzar error
     console.log("Error");
   }
+
   let stopCard = StopCard.fromInstance(stops[0], routes);
+  console.log(stops[0].toString());
 
   res.render('paradaRenfe', {stopCard: stopCard});
 });

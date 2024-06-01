@@ -18,7 +18,7 @@
 
 .logo {
   height: 2.5rem;
-  width: 8rem;
+  width: 8.5rem;
   margin-left: 5rem;
 }
 
@@ -39,6 +39,10 @@
 }
 
 .tab>a:hover {
+  color: orangered;
+}
+
+.dropdown-button:hover {
   color: orangered;
 }
 
@@ -115,7 +119,7 @@
   color: #0a0a23;
   border-radius: 2px;
   background-color: rgb(209, 209, 209);
-  transform: scale(0.9); /* Escala el botón a 1.05 veces su tamaño original */
+  transform: scale(0.9);
 }
 
 .dropdown-button:hover {
