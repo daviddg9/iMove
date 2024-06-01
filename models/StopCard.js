@@ -10,19 +10,20 @@ class StopCard {
 
     // Constructor
     
-    constructor(STOP_ID, STOP_NAME, STOP_LAT, STOP_LON) {
+    constructor(STOP_ID, STOP_NAME, STOP_LAT, STOP_LON, ROUTE_LIST) {
         this.STOP_ID = STOP_ID;
         this.STOP_NAME = STOP_NAME;
         this.STOP_LAT = STOP_LAT;
         this.STOP_LON = STOP_LON;
+        this.ROUTE_LIST = ROUTE_LIST;
     }
 
-    static fromInstance(inst) {
-        if (!inst)
+    static fromInstance(inst, routeList) {
+        if (!inst || !routeList)
             return null;
-        let stop = new Stop("", "", "", "");
-        Object.assign(stop, inst);
-        return stop;
+        let stopCard = new StopCard("", "", "", "", routeList);
+        Object.assign(stopCard, inst);
+        return stopCard;
     }
 
     // Getters and Setters
@@ -37,7 +38,7 @@ class StopCard {
 
     // Methods
     toString() {
-        return "(" + this.STOP_ID + ", " + this.STOP_NAME + ", " + this.STOP_LAT + ", " + this.STOP_LON + ")";
+        return "(" + this.STOP_ID + ", " + this.STOP_NAME + ", " + this.STOP_LAT + ", " + this.STOP_LON + ", " + this.ROUTE_LIST + ")";
     }
 
     toCard() {

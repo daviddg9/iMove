@@ -8,10 +8,11 @@ include head.jade
         .body-child-superior
           .datosParada
             .nombreParada-padre
-              h1 #{nombreParada}
+              h1 #{stopCard.STOP_NAME}
             .numerosLineas
-              .numLinea-padre 
-              p #{numLinea}
+              each route in stopCard.ROUTE_LIST
+                .numLinea-padre 
+                p #{route.ROUTE_SHORT_NAME}
 
         .body-child-inferior 
           .text-superior  
@@ -19,7 +20,7 @@ include head.jade
           .card-inferior
             .card-inferior-left
               .numLinea2
-                p #{n1}
+                p n1
             .card-inferior-right
               .nombreParada-parent
                 p.nombreParada
