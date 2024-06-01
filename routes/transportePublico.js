@@ -18,12 +18,25 @@ router.get('/renfe', async function(req, res, next) {
   res.render('renfe', {stops: stops});
 });
 
+router.get('/renfe/paradaRenfe', async function(req, res, next) {
+
+
+  res.render('paradaRenfe', {stops: stops});
+});
+
 router.get('/metro', function(req, res, next) {
   res.render('metro', {
     
 
   });
 });
+
+router.get('/metro/parada', async function(req, res, next) {
+
+
+  res.render('parada', {stops: stops});
+});
+
 
 router.get('/interurbanos', function(req, res, next) {
   res.render('interurbanos', {
@@ -35,6 +48,13 @@ router.get('/interurbanos', function(req, res, next) {
   });
 });
 
+router.get('/interurbanos/parada', async function(req, res, next) {
+
+
+  res.render('parada', {stops: stops});
+});
+
+
 router.get('/urbanos', function(req, res, next) {
   res.render('urbanos', {
     placeholderText : "Código de parada",
@@ -44,5 +64,12 @@ router.get('/urbanos', function(req, res, next) {
     buttonTextHorario : "Horario"
   });
 });
+
+router.get('/urbanos/parada', async function(req, res, next) {
+
+
+  res.render('parada', {stops: stops});
+});
+
 
 module.exports = router;

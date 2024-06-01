@@ -1,0 +1,30 @@
+- css_title= "paradaRenfe"
+
+include head.jade
+  body
+    include header.jade 
+    .body 
+      .body-global 
+        .body-child-superior
+          .datosParada
+            .nombreParada-padre
+              h1 #{nombreParada}
+            .numerosLineas
+              .numLinea-padre 
+              p #{numLinea}
+
+        .body-child-inferior 
+          .text-superior  
+            p Tiempo real
+          .card-inferior
+            .card-inferior-left
+              .numLinea2
+                p #{n1}
+            .card-inferior-right
+              .nombreParada-parent
+                p.nombreParada
+              .container-tiempos 
+                .tiempo-parent
+                  p.tiempo
+
+
