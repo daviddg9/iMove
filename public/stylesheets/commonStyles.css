@@ -106,6 +106,8 @@
   padding: 5px;
   text-decoration: none;
   padding: 20px 40px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 
 }
 
@@ -113,6 +115,7 @@
   color: #0a0a23;
   border-radius: 2px;
   background-color: rgb(209, 209, 209);
+  transform: scale(0.9); /* Escala el botón a 1.05 veces su tamaño original */
 }
 
 .dropdown-button:hover {

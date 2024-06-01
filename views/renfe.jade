@@ -14,7 +14,8 @@ include head.jade
     ul.station-list
       each stop in stops
         li.station
-          img(src="/images/metro.png", alt="").icon
-          .station-name #{stop.STOP_NAME}
-          .station-number #{stop.STOP_ID}
+          a.stationLink(href="/transportePublico/renfe/paradaRenfe")
+            img(src="/images/metro.png", alt="").icon
+            .station-name #{stop.STOP_NAME}
+            .station-number #{stop.STOP_ID}
   
