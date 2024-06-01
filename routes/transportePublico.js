@@ -18,10 +18,10 @@ router.get('/renfe', async function(req, res, next) {
   res.render('renfe', {stops: stops});
 });
 
-router.get('/renfe/paradaRenfe', async function(req, res, next) {
+router.get('/renfe/paradaRenfe', function(req, res, next) {
 
 
-  res.render('paradaRenfe', {stops: stops});
+  res.render('paradaRenfe', {nombreParada: "nombreParada", numLinea: "numLinea", n1: "n1"});
 });
 
 router.get('/metro', function(req, res, next) {
@@ -31,10 +31,10 @@ router.get('/metro', function(req, res, next) {
   });
 });
 
-router.get('/metro/parada', async function(req, res, next) {
+router.get('/metro/parada', function(req, res, next) {
 
 
-  res.render('parada', {stops: stops});
+  res.render('parada', {});
 });
 
 
@@ -48,10 +48,10 @@ router.get('/interurbanos', function(req, res, next) {
   });
 });
 
-router.get('/interurbanos/parada', async function(req, res, next) {
+router.get('/interurbanos/parada', function(req, res, next) {
 
 
-  res.render('parada', {stops: stops});
+  res.render('parada', {});
 });
 
 
@@ -65,10 +65,10 @@ router.get('/urbanos', function(req, res, next) {
   });
 });
 
-router.get('/urbanos/parada', async function(req, res, next) {
+router.get('/urbanos/parada', function(req, res, next) {
 
 
-  res.render('parada', {stops: stops});
+  res.render('parada', {});
 });
 
 
