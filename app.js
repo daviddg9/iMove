@@ -10,6 +10,10 @@ var urbanosRouter = require('./routes/urbanos');
 var usersRouter = require('./routes/users');
 var renfesRouter = require('./routes/renfe');
 var metroRouter = require('./routes/metro');
+var horarioMetroRouter = require('./routes/horarioMetro');
+var horarioRenfeRouter = require('./routes/horarioRenfe');
+var horarioUrbanosRouter = require('./routes/horarioUrbanos');
+var horarioInterurbanosRouter = require('./routes/horarioInterurbanos');
 
 
 
@@ -32,6 +36,10 @@ app.use('/interurbanos', interurbanosRouter);
 app.use('/urbanos', urbanosRouter);
 app.use('/renfe', renfesRouter);
 app.use('/metro', metroRouter);
+app.use('/horarioMetro', horarioMetroRouter);
+app.use('/horarioRenfe', horarioRenfeRouter);
+app.use('/horarioUrbanos', horarioUrbanosRouter);
+app.use('/horarioInterurbanos', horarioInterurbanosRouter);
 
 
 
