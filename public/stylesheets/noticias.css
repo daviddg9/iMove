@@ -3,14 +3,14 @@
 
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #262222;
+    font-family: Montserrat;
+    background-color: rgb(63, 60, 60);    
 }
   
 .container {
-    max-width: 50rem; 
+    max-width: 70rem; 
     margin: 0 auto;
-    padding: 1rem;
+    padding: 0;
 }
   
 .page-title {
@@ -20,9 +20,8 @@ body {
 }
   
 .news-container {
-    
     padding: 1rem;
-    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.1); 
+    background-color: black;
 }
   
 .news-item {
@@ -31,37 +30,49 @@ body {
     margin-bottom: 1rem;
 }
   
-.news-image {
-    width: 8rem; 
-    height: auto;
+.img-noticias {
+    width: 12rem; 
     margin-right: 1rem;
 }
   
 .news-content {
-    flex: 1;
+    display: flex;
+    flex-direction: row;
+}
+
+.news-content-data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
   
 .news-title {
-    font-size: 1.2rem;
+    font-size: 14px;
     color: #0078d4;
     margin: 0;
+    text-align: start;
 }
   
 .news-date {
-    font-size: 0.8rem;
-    color: white;
-    margin: 0.5rem 0; 
+    font-size: 10px;
+    color: rgb(120, 120, 120);
+    margin: 0.5rem; 
+}
+
+.news-content-titleDate{
+    display: flex;
+    flex-direction: row;
 }
   
-.news-description {
-    font-size: 1rem;
+.news-content-descrip{
     color: white;
-    margin: 0;
+    font-size: 12px;
+    text-align: start;
 }
   
 .divider {
     border: 0;
-    border-top: 0.3125rem solid white;
+    border-top: 0.1rem solid white;
     margin: 1rem 0;
 }
 

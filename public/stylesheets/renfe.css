@@ -126,8 +126,9 @@ input {
     background-color: #4CAF50;
     color: white;
     border-radius: 50%;
-    width: 1.25rem; 
-    height: 1.25rem; 
+    width: max-content; 
+    height: max-content;
+    padding: 0.2rem; 
     display: flex;
     align-items: center;
     justify-content: center;

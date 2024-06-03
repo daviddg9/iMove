@@ -32,11 +32,25 @@ router.get('/renfe/paradaRenfe', async function(req, res, next) {
     // TODO: lanzar error
     console.log("Error");
   }
+  
+  router.get('/renfe', async function(req, res, next) {
+    let dotenv = req.app.get("dotenv");
+    let dao = new DAO(dotenv["DB_HOST"], dotenv["DB_USER"], dotenv["DB_PASS"], dotenv["DB_NAME"]);
+    let stops = await dao.getStops();
+  
+    res.render('renfe', {stops: stops});
+  });
 
   let stopCard = StopCard.fromInstance(stops[0], routes);
   console.log(stops[0].toString());
 
   res.render('paradaRenfe', {stopCard: stopCard});
+});
+
+router.get('/renfe/planos', function(req, res, next) {
+
+
+  res.render('planos', {});
 });
 
 router.get('/metro', function(req, res, next) {
@@ -46,11 +60,18 @@ router.get('/metro', function(req, res, next) {
   });
 });
 
-router.get('/metro/parada', function(req, res, next) {
+router.get('/metro/paradaMetro', function(req, res, next) {
 
 
-  res.render('parada', {});
+  res.render('paradaMetro', {});
 });
+
+router.get('/metro/planos', function(req, res, next) {
+
+
+  res.render('planos', {});
+});
+
 
 
 router.get('/interurbanos', function(req, res, next) {
@@ -58,7 +79,7 @@ router.get('/interurbanos', function(req, res, next) {
     placeholderText : "Código de parada",
     buttonTextSearch : "Buscar",
     instructionText1 : "Busca el código de la parada en la marquesina",
-    instructionText2 : "Si no lo encuentras busca en estas secciones",
+    instructionText2 : "Si no lo encuentra, busque en los planos",
     buttonTextHorario : "Horario"
   });
 });
@@ -69,13 +90,18 @@ router.get('/interurbanos/parada', function(req, res, next) {
   res.render('parada', {});
 });
 
+router.get('/interurbanos/planos', function(req, res, next) {
+
+
+  res.render('planos', {});
+});
 
 router.get('/urbanos', function(req, res, next) {
   res.render('urbanos', {
     placeholderText : "Código de parada",
     buttonTextSearch : "Buscar",
     instructionText1 : "Busca el código de la parada en la marquesina",
-    instructionText2 : "Si no lo encuentras busca en estas secciones",
+    instructionText2 : "Si no lo encuentra, busque en los planos",
     buttonTextHorario : "Horario"
   });
 });
@@ -84,6 +110,12 @@ router.get('/urbanos/parada', function(req, res, next) {
 
 
   res.render('parada', {});
+});
+
+router.get('/urbanos/planos', function(req, res, next) {
+
+
+  res.render('planos', {});
 });
 
 
