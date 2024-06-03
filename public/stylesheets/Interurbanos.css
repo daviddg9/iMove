@@ -6,8 +6,9 @@
   align-items: center;
   height: 100vh;
   margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: gray;
+  font-family: Montserrat;
+  background-color: rgb(63, 60, 60);
+  color: white;
 }
 
 .container-busca {
@@ -39,15 +40,35 @@
   cursor: pointer;
 }
 
-.button-container {
-  margin-top: 1.25rem; 
+.planoUInterurbanos{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.horario {
-  padding: 0.625rem 1.25rem; 
-  border-radius: 0.3125rem; 
-  border: none;
+
+.planoInterurbanos-button{
   background-color: #4CAF50;
-  color: white;
+  border: none;
+  width: 2.8rem;
+  height: 2.8rem;
   cursor: pointer;
+  border-radius: 8px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 9px 0 black;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.planoUrbanos-button:hover{
+  transform: scale(1.25);
+}
+
+.button-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

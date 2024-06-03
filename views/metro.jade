@@ -3,24 +3,26 @@
 include head.jade
   body
     include header.jade
-    .app
-      .header
-        h1 Metro
-    .options
-      button.horario Horario
-    .paradas
-      input(type='text', placeholder='Nombre de parada').input
+    .body
+      .app
+        .headerCercanias
+          h1 Metro
+      .options
+        .horarioRenfe
+          button.horarioRenfe-button
+            img(src="/images/clockIconWhite.png", alt="").clockIcon
+          p Horario
+        .planoRenfe
+          button.planoRenfe-button
+            img(src="/images/mapIcon.svg", alt="").mapIcon
+          p Planos
+      .paradas
+        input(type='text', placeholder='Nombre de parada').input
 
-    ul.station-list
-      li.station
-        img(src="/images/metro.png", alt="").icon
-        .station-name Abrantes
-        .station-number 11
-      li.station
-        img(src="/images/metro.png", alt="").icon
-        .station-name Acacias
-        .station-number 5
-      li.station
-        img(src="/images/metro.png", alt="").icon
-        .station-name Aeropuerto T-4
-        .station-number 8
+      ul.station-list
+          li.station
+            a.stationLink(href="/transportePublico/renfe/paradaRenfe")
+              img(src="/images/renfeLogo.png", alt="").icon
+              .station-name
+              .station-number 
+  

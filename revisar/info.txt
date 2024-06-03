@@ -1,1 +1,0 @@
-No se porque me salia Not found en la página asi que la he diseñado con el inspeccionar elemento, he puesto todo en los estilos asi que debería estar bine, de todas formas te he dejado una imagen del resultado para que compruebes si se ve bien si puedes tu arreglar lo de que no vaya con localhost:3000/renfe/paradaRenfe

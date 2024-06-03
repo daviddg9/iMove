@@ -1,18 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto&family=Roboto+Mono&display=swap');
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: grey;
-    color: #b74d38;
-    margin: 0;
-    padding: 0;
+    font-family: Montserrat;
+    background-color: rgb(63, 60, 60);
+    color: white;
+    
+}
+
+.body{
+    padding: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
   
-.app {
-    padding: 1.25rem;
-}
   
-.header h1 {
+.headerCercanias h1 {
     text-align: center;
 }
   
@@ -20,37 +23,82 @@ body {
     display: flex;
     justify-content: center;
     margin-bottom: 1.25rem; 
+    width: 50%;
+    gap: 20px;
 }
   
-.horario {
-    background-color: #b74d38;
-    color: #fff;
+.horarioRenfe-button {
+    background-color: rgb(9, 72, 146);
     border: none;
-    padding: 0.625rem 1.25rem; 
-    margin: 0 0.3125rem; 
+    width: 2.8rem;
+    height: 2.8rem;
     cursor: pointer;
-    border-radius: 0.3125rem; 
+    border-radius: 8px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 9px 0 black;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
-  
+
+.horarioRenfe-button:hover{
+    transform: scale(1.25);
+}
+
+.planoRenfe-button{
+    background-color: rgb(9, 72, 146);
+    border: none;
+    width: 2.8rem;
+    height: 2.8rem;
+    cursor: pointer;
+    border-radius: 8px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 9px 0 black;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.planoRenfe-button:hover{
+    transform: scale(1.25);
+}
+
+.horarioRenfe{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.planoRenfe{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .paradas {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 80%;
 }
   
 input {
-    width: 80%;
+    width: 60%;
     padding: 0.625rem; 
     margin-bottom: 1.25rem; 
     border: 1px solid white;
     border-radius: 0.3125rem; 
     background-color: white;
-    color: #fff;
 }
   
 .station-list {
     list-style-type: none;
-    padding: 0; 
+    padding: 0;
+    width: 758px;
 }
   
 .station {
@@ -62,8 +110,7 @@ input {
   
 .icon {
     width: 1.875rem; 
-    height: 1.875rem; 
-    background-color: #e0e0e0;
+    height: 1.7; 
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -87,7 +134,23 @@ input {
     font-size: 0.875rem; 
 }
   
+.stationLink{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+}
   
+.clockIcon{
+    color: white;
+    width: 1.5rem;
+    height: 1.5rem;
+}
 
-  
-  
+.mapIcon{
+    color: white;
+    width: 1.8rem;
+    height: 1.8rem;
+}
