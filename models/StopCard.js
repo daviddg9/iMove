@@ -2,11 +2,11 @@ var express = require('express');
 
 class StopCard {
     // Attributes
-    STOP_ID = ""
-    STOP_NAME = ""
-    STOP_LAT = ""
-    STOP_LON = ""
-    ROUTE_LIST = []
+    STOP_ID = "";
+    STOP_NAME = "";
+    STOP_LAT = "";
+    STOP_LON = "";
+    ROUTE_LIST = [];
 
     // Constructor
     

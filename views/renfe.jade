@@ -15,11 +15,13 @@ include head.jade
       .paradas
         input(type='text', placeholder='Nombre de parada').input
 
-      ul.station-list
-        each stop in stops
-          li.station
-            a.stationLink(href="/transportePublico/renfe/paradaRenfe")
-              img(src="/images/renfeLogo.png", alt="").icon
-              .station-name #{stop.STOP_NAME}
-              .station-number #{stop.STOP_ID}
+      form(method="get", action="/transportePublico/renfe/paradaRenfe")
+        ul.station-list
+          each stop in stops
+            li.station
+              button.stationLink(type="submit", name="stop_id", value="#{stop.STOP_ID}")
+                img(src="/images/renfeLogo.png", alt="").icon
+                .station-name #{stop.STOP_NAME}
+                each route in stopRoutes[stop.STOP_ID]
+                  .station-number(style="background-color: \##{route.ROUTE_COLOR}") #{route.ROUTE_SHORT_NAME}
   

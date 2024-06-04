@@ -2,10 +2,11 @@ var express = require('express');
 
 class Route {
     // Attributes
-    ROUTE_ID = ""
-    ROUTE_SHORT_NAME = ""
-    ROUTE_LONG_NAME = ""
-    ROUTE_COLOR = ""
+    ROUTE_ID = "";
+    ROUTE_SHORT_NAME = "";
+    ROUTE_LONG_NAME = "";
+    ROUTE_COLOR = "";
+    STOP_TIMES = []
 
     // Constructor
     

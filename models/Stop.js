@@ -2,10 +2,10 @@ var express = require('express');
 
 class Stop {
     // Attributes
-    STOP_ID = ""
-    STOP_NAME = ""
-    STOP_LAT = ""
-    STOP_LON = ""
+    STOP_ID = "";
+    STOP_NAME = "";
+    STOP_LAT = "";
+    STOP_LON = "";
 
     // Constructor
     

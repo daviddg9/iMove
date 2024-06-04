@@ -8,22 +8,24 @@ include head.jade
         .body-child-superior
           .datosParada
             .nombreParada-padre
-              h1 #{stopCard.STOP_NAME}
-            .numerosLineas
-              each route in stopCard.ROUTE_LIST
+              h1#nombre_parada #{stopCard.STOP_NAME}
+            .numerosLineas#lineas
+              each route in routesSingle
                 .numLinea-padre 
-                  p #{route.ROUTE_SHORT_NAME}
+                  span(style="background-color: \##{route.ROUTE_COLOR};") #{route.ROUTE_SHORT_NAME}
 
         .body-child-inferior 
           .text-superior  
             p Tiempo real
-          .card-inferior
-            .card-inferior-left
-              .numLinea2
-                p n1
-            .card-inferior-right
-              .nombreParada-parent
-                p.nombreParada Humanes
-              .container-tiempos 
-                .tiempo-parent
-                  p.tiempo 10 min
+          each route in stopCard.ROUTE_LIST
+            .card-inferior
+              .card-inferior-left
+                .numLinea2#card_linea_corto(style="background-color: \##{route.ROUTE_COLOR};")
+                  p #{route.ROUTE_SHORT_NAME}
+              .card-inferior-right
+                .nombreParada-parent#card_linea_largo
+                  p.nombreParada #{route.ROUTE_LONG_NAME}
+                .container-tiempos#card_tiempos
+                  each stop_time in route.STOP_TIMES
+                    .tiempo-parent
+                      p.tiempo #{stop_time.DEPARTURE_TIME}
