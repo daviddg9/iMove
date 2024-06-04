@@ -3,73 +3,70 @@
 /*--------INDEX------------*/
 
 body {
-  background-image: url(../images/ciudadFondo.png);
-  background-size: cover;
-  background-repeat: no-repeat;
+  font-family: Arial, sans-serif;
   margin: 0;
+  padding: 0;
+  background-color: rgb(63, 60, 60);
 }
 
-.body-global{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+.container {
+  width: 60%;
+  margin: 0 auto;
+  padding: 1.25rem;
+  background-color: black;
+  border-radius: 1rem;
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
 
-.body-text{
-  width: 50%;
-  color: white;
-  font-family: Montserrat;
-  text-shadow: 3px 3px 12px rgb(0, 0, 0);
-  margin-top: 10rem;
-}
-
-.body-text-description{
-  width: 80%;
-}
-
-.logo{
-  width: 6rem;
-  height: 2rem;
 
 }
 
-.fa-car-side{
-  width: 10rem;
-  height: 10rem;
-}
-.input-container {
-  display: flex;
-  align-items: center;
-  background-color: white; 
-  border-radius: 1.5625rem; 
-  overflow: hidden;
-  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); 
+h2 {
+  color: wheat;
 }
 
-.textoinp {
-  background-color: white;
-  border: none;
-  padding: 0.625rem 1.25rem; 
-  border-radius: 1.5625rem 0 0 1.5625rem; 
-  outline: none;
-  flex: 1;
+p {
+  color: whitesmoke;
 }
 
-.boto{
-  background-color: white; 
-  border: none;
-  padding: 0.625rem; 
-  border-radius: 0 1.5625rem 1.5625rem 0; 
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-.lupa {
-  width: 1.25rem; 
-  height: 1.25rem; 
+li {
+  margin-bottom: 0.5rem;
 }
+
+
+.body {
+  text-align: start;
+  padding-top: 3.125rem;
+}
+
+.container h2 {
+  font-size: 1.75rem;
+  margin-bottom: 0.9375rem;
+}
+
+.container p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.container ul li:before {
+  content: "\2022";
+  color: #4CAF50;
+  font-weight: bold;
+  display: inline-block;
+  width: 1rem;
+  margin-left: 1rem;
+}
+
+.container ul li {
+  color: whitesmoke;
+}
+
+
 
 
 
