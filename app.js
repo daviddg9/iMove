@@ -8,7 +8,7 @@ var noticiasRouter = require('./routes/noticias');
 var transPubRouter = require('./routes/transportePublico');
 var transPrivRouter = require('./routes/transportePrivado');
 var paradaRenfeRouter = require('./routes/paradaRenfe');
-
+var servicePicker = require('./middleware/servicePicker');
 
 
 var app = express();
@@ -23,13 +23,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(servicePicker);
+
 app.use('/', indexRouter);
 app.use('/noticias', noticiasRouter);
 app.use('/transportePublico', transPubRouter);
 app.use('/paradaRenfe', paradaRenfeRouter);
 app.use('/transportePrivado', transPrivRouter);
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

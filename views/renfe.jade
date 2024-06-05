@@ -20,8 +20,10 @@ include head.jade
           each stop in stops
             li.station
               button.stationLink(type="submit", name="stop_id", value="#{stop.STOP_ID}")
-                img(src="/images/renfeLogo.png", alt="").icon
-                .station-name #{stop.STOP_NAME}
-                each route in stopRoutes[stop.STOP_ID]
-                  .station-number(style="background-color: \##{route.ROUTE_COLOR}") #{route.ROUTE_SHORT_NAME}
+                .station-data
+                  img(src="/images/renfeLogo.png", alt="").icon
+                  .station-name #{stop.STOP_NAME}
+                .station-numbers
+                  each route in stopRoutes[stop.STOP_ID]
+                    .station-number(style="background-color: \##{route.ROUTE_COLOR}") #{route.ROUTE_SHORT_NAME}
   

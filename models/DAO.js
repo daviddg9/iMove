@@ -4,6 +4,8 @@ const Stop = require('./Stop');
 const Route = require('./Route');
 const StopTime = require('./StopTime');
 const Trip = require('./Trip');
+const DEBUG = false;
+
 
 class DAO {
     // Attributes
@@ -38,7 +40,8 @@ class DAO {
         if (this.connection == null)
             await this.connect();
         let listaObjetos = [];
-        console.log("Q\t" + query);
+        if (DEBUG)
+            console.log("Q\t" + query);
         const [results] = await this.connection.execute(query);
         results.forEach(dbRow => {
             listaObjetos.push(object.fromInstance(dbRow));
@@ -49,10 +52,10 @@ class DAO {
     async getStops(where="") {
         if (this.connection == null)
             await this.connect()
-        let sql = "SELECT * FROM STOPS";
+        let sql = "SELECT * FROM RENFE_STOPS";
         if (where.length > 0)
             sql += " WHERE " + where;
-        sql += ";";
+        sql += " ORDER BY STOP_NAME ASC;";
         
         let listaStops = await this.execQueryToObjectList(sql, Stop);
         //TODO: Checkear errores
@@ -62,7 +65,7 @@ class DAO {
     async getRoutes(where="") {
         if (this.connection == null)
             await this.connect()
-        let sql = "SELECT * FROM ROUTES";
+        let sql = "SELECT * FROM RENFE_ROUTES";
         if (where.length > 0)
             sql += " WHERE " + where;
         sql += ";";
@@ -79,9 +82,9 @@ class DAO {
         }
         if (this.connection == null)
             await this.connect()
-        let sql = "SELECT * FROM STOPS " + 
-        "WHERE STOPS.STOP_ID IN ( " + 
-            "SELECT STOP_ID FROM STOP_ROUTES WHERE ROUTE_ID = '" + routeId + "' " + 
+        let sql = "SELECT * FROM RENFE_STOPS " + 
+        "WHERE RENFE_STOPS.STOP_ID IN ( " + 
+            "SELECT STOP_ID FROM RENFE_STOP_ROUTES WHERE ROUTE_ID = '" + routeId + "' " + 
         ");";
         let listaStops = await this.execQueryToObjectList(sql, Stop);
         //TODO: Checkear errores
@@ -95,9 +98,9 @@ class DAO {
         }
         if (this.connection == null)
             await this.connect()
-        let sql = "SELECT * FROM ROUTES " + 
-        "WHERE ROUTES.ROUTE_ID IN ( " + 
-            "SELECT ROUTE_ID FROM STOP_ROUTES WHERE STOP_ID = '" + stopId + "'" + 
+        let sql = "SELECT * FROM RENFE_ROUTES " + 
+        "WHERE RENFE_ROUTES.ROUTE_ID IN ( " + 
+            "SELECT ROUTE_ID FROM RENFE_STOP_ROUTES WHERE STOP_ID = '" + stopId + "'" + 
         ");";
         let listaRoutes = await this.execQueryToObjectList(sql, Route);
         //TODO: Checkear errores
@@ -111,9 +114,9 @@ class DAO {
         }
         if (this.connection == null)
             await this.connect()
-        let sql = "SELECT * FROM ROUTES " + 
-        "WHERE ROUTES.ROUTE_ID IN ( " + 
-            "SELECT ROUTE_ID FROM STOP_ROUTES WHERE STOP_ID = '" + stopId + "'" + 
+        let sql = "SELECT * FROM RENFE_ROUTES " + 
+        "WHERE RENFE_ROUTES.ROUTE_ID IN ( " + 
+            "SELECT ROUTE_ID FROM RENFE_STOP_ROUTES WHERE STOP_ID = '" + stopId + "'" + 
         ");";
         let listaRoutes = await this.execQueryToObjectList(sql, Route);
         //TODO: Checkear errores
@@ -150,7 +153,7 @@ class DAO {
         }
         if (this.connection == null)
             await this.connect()
-        let sql = "SELECT TRIP_ID, STOP_ID, ARRIVAL_TIME, DEPARTURE_TIME, STOP_SEQUENCE FROM STOP_TIMES " + 
+        let sql = "SELECT TRIP_ID, STOP_ID, ARRIVAL_TIME, DEPARTURE_TIME, STOP_SEQUENCE FROM RENFE_STOP_TIMES " + 
         "WHERE STOP_ID = '" + stopId + "' AND DEPARTURE_TIME >= TIME('" + timeNow + "') AND ARRIVAL_TIME <= TIME('" + timeEnd + "') " +
         "ORDER BY DEPARTURE_TIME";
         let listaStopTimes = await this.execQueryToObjectList(sql, StopTime);
@@ -187,7 +190,7 @@ class DAO {
         }
         if (this.connection == null)
             await this.connect()
-        let sql = "SELECT * FROM TRIPS " + 
+        let sql = "SELECT * FROM RENFE_TRIPS " + 
         "WHERE ROUTE_ID = '" + routeId + "'"; 
         let listaRoutes = await this.execQueryToObjectList(sql, Trip);
         //TODO: Checkear errores

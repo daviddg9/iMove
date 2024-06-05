@@ -58,12 +58,12 @@ router.get('/renfe/paradaRenfe', async function(req, res, next) {
     for (const trip of trips) {
       trip_ids.push(trip.TRIP_ID);
     }
-    route.STOP_TIMES = stopTimes.filter((stopTime) => trip_ids.includes(stopTime.TRIP_ID));
-    let routeUnique = route.STOP_TIMES.filter((stop_time, index, array) => array.indexOf(stop_time.DEPARTURE_TIME) === index);
-    console.log(routeUnique);
+    route.RENFE_STOP_TIMES = stopTimes.filter((stopTime) => trip_ids.includes(stopTime.TRIP_ID));
+    //let routeUnique = route.RENFE_STOP_TIMES.filter((stop_time, index, array) => array.indexOf(stop_time.DEPARTURE_TIME) === index);
+    //console.log(routeUnique);
   }
 
-  let routes_filtered = routes.filter((route) => route.STOP_TIMES.length > 0);
+  let routes_filtered = routes.filter((route) => route.RENFE_STOP_TIMES.length > 0);
   
   //console.log(routes_filtered);
 

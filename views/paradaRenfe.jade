@@ -26,6 +26,6 @@ include head.jade
                 .nombreParada-parent#card_linea_largo
                   p.nombreParada #{route.ROUTE_LONG_NAME}
                 .container-tiempos#card_tiempos
-                  each stop_time in route.STOP_TIMES
+                  each stop_time in route.RENFE_STOP_TIMES
                     .tiempo-parent
                       p.tiempo #{stop_time.DEPARTURE_TIME}

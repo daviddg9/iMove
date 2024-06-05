@@ -5,22 +5,26 @@ class Route {
     ROUTE_ID = "";
     ROUTE_SHORT_NAME = "";
     ROUTE_LONG_NAME = "";
+    ROUTE_TYPE = "";
     ROUTE_COLOR = "";
-    STOP_TIMES = []
+    ROUTE_TEXT_COLOR = "";
+    RENFE_STOP_TIMES = []
 
     // Constructor
     
-    constructor(ROUTE_ID, ROUTE_SHORT_NAME, ROUTE_LONG_NAME, ROUTE_COLOR) {
+    constructor(ROUTE_ID, ROUTE_SHORT_NAME, ROUTE_LONG_NAME, ROUTE_TYPE, ROUTE_COLOR, ROUTE_TEXT_COLOR) {
         this.ROUTE_ID = ROUTE_ID;
         this.ROUTE_SHORT_NAME = ROUTE_SHORT_NAME;
         this.ROUTE_LONG_NAME = ROUTE_LONG_NAME;
+        this.ROUTE_TYPE = ROUTE_TYPE;
         this.ROUTE_COLOR = ROUTE_COLOR;
+        this.ROUTE_TEXT_COLOR = ROUTE_TEXT_COLOR;
     }
 
     static fromInstance(inst) {
         if (!inst)
             return null;
-        let route = new Route("", "", "", "");
+        let route = new Route("", "", "", "", "", "");
         Object.assign(route, inst);
         return route;
     }
@@ -37,7 +41,7 @@ class Route {
 
     // Methods
     toString() {
-        return "(" + this.ROUTE_ID + ", " + this.ROUTE_SHORT_NAME + ", " + this.ROUTE_LONG_NAME + ", " + this.ROUTE_COLOR + ")";
+        return "(" + this.ROUTE_ID + ", " + this.ROUTE_SHORT_NAME + ", " + this.ROUTE_LONG_NAME + ", " + this.ROUTE_TYPE + ", " + this.ROUTE_COLOR + ", " + this.ROUTE_TEXT_COLOR + ")";
     }
 }
 
