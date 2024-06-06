@@ -3,13 +3,28 @@
 include head.jade
   body
     include header.jade 
-    .body 
-      .body-global 
-        .body-text 
-          .body-text-title 
-            h1 #{titleViajes}
-          .body-text-description
-            p #{lorem}
-        .body-container
-          .body-container-child   
-            input(type="text", placeholder="Selecciona tu Destino...")
+    .body
+      .container
+        .bienvenida
+          .bienvenida-text
+            h2 Bienvenido a iMove
+            p Descubre la mejor manera de combinar transportes públicos y privados para tu comodidad, desde nuestra pagina te ofrecemos multiples servicios que podrás usar para la mejora de su transporte. 
+            p Nuestra pagina cuenta con datos tanto para transporte publico como para  privado, pudiendo solicitar este último con mas de una empresa.
+          .bienvenida-img
+            .img-parent
+              img(src="images/busSvg.png", alt="").busImg
+        .about_Us
+          .about_Us-title
+            h2 Sobre Nosotros
+            img(src="images/aboutUs_icon.png", alt="").aboutUs_icon
+          .about_Us-text
+            p Nuestra aplicación se dedica a la unificación de distintos tipos de medios de transporte, facilitando tus desplazamientos diarios según tus prioridades.
+            p Gracias a las APIs que utilizamos disponemos de tiempos completamente actualizados, olvidate de volver a esperar tu transporte.
+            p Con un equipo formado por expertos en tecnología, estamos comprometidos a proporcionar una experiencia de usuario excepcional y una interfaz clara para usuarios de cualquier edad.
+            p Trabajamos para su comodidad y por su tiempo.
+        .services
+          h2 Servicios
+          ul
+            li Integración de rutas de autobuses, metro y renfe.
+            li Multiples opciones de transporte privado y compartido para su comodidad.
+            li Planificación de viajes personalizados para una llegada mas rapida a su destino.
