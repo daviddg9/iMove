@@ -10,20 +10,17 @@ Date.prototype.addHours = function(h) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('transportePublico', {
-    
-
-  });
+  res.render('transportePublico', {});
 });
 
 router.get('/renfe', async function(req, res, next) {
   let dotenv = req.app.get("dotenv");
   let dao = new DAO(dotenv["DB_HOST"], dotenv["DB_USER"], dotenv["DB_PASS"], dotenv["DB_NAME"]);
-  let stops = await dao.getStops();
+  let stops = await dao.getRenfeStops();
   let stopRoutes = {};
   
   for (const stop of stops) {
-    stopRoutes[stop.STOP_ID] = await dao.getRoutesSingleByStopId(stop.STOP_ID);
+    stopRoutes[stop.STOP_ID] = await dao.getRenfeRoutesSingleByStopId(stop.STOP_ID);
   }
 
   res.render('renfe', {stops: stops, stopRoutes: stopRoutes});
@@ -31,20 +28,20 @@ router.get('/renfe', async function(req, res, next) {
 
 
 router.get('/renfe/paradaRenfe', async function(req, res, next) {
-  // TODO: Recoger id de parada de la request
   let stop_id = req.query.stop_id;
+  let calendarList = req.body.calendarList;
   let dotenv = req.app.get("dotenv");
   let dao = new DAO(dotenv["DB_HOST"], dotenv["DB_USER"], dotenv["DB_PASS"], dotenv["DB_NAME"]);
-  let stops = await dao.getStops("STOP_ID = " + stop_id);
-  let routes = await dao.getRoutesByStopId(stop_id);
-  let routesSingle = await dao.getRoutesSingleByStopId(stop_id);
+  let stops = await dao.getRenfeStops("STOP_ID = " + stop_id);
+  let routes = await dao.getRenfeRoutesByStopId(stop_id);
+  let routesSingle = await dao.getRenfeRoutesSingleByStopId(stop_id);
 
   let date_now = "" + new Date();
   let date_end = "" + new Date().addHours(1);
   let time_now = date_now.split(" ")[4];
   let time_end = date_end.split(" ")[4];
 
-  let stopTimes = await dao.getFutureStopTimesByStopId(stop_id, time_now, time_end);
+  let stopTimes = await dao.getRenfeFutureStopTimesByStopId(stop_id, time_now, time_end);
 
   // TODO: Controlar fallos si no se han encontrado paradas/rutas
   if (stops.length == 0 || routes.length == 0 || stopTimes.length == 0) {
@@ -53,20 +50,16 @@ router.get('/renfe/paradaRenfe', async function(req, res, next) {
   }
 
   for (const route of routes) {
-    let trips = await dao.getTripsByRouteId(route.ROUTE_ID);
+    let trips = await dao.getRenfeTripsByRouteIdAndActiveCalendarList(route.ROUTE_ID, calendarList);
     let trip_ids = [];
     for (const trip of trips) {
       trip_ids.push(trip.TRIP_ID);
     }
     route.RENFE_STOP_TIMES = stopTimes.filter((stopTime) => trip_ids.includes(stopTime.TRIP_ID));
-    //let routeUnique = route.RENFE_STOP_TIMES.filter((stop_time, index, array) => array.indexOf(stop_time.DEPARTURE_TIME) === index);
-    //console.log(routeUnique);
   }
 
   let routes_filtered = routes.filter((route) => route.RENFE_STOP_TIMES.length > 0);
   
-  //console.log(routes_filtered);
-
   let stopCard = StopCard.fromInstance(stops[0], routes_filtered);
 
   res.render('paradaRenfe', {stopCard: stopCard, routesSingle: routesSingle});
@@ -78,11 +71,17 @@ router.get('/renfe/planos', function(req, res, next) {
   res.render('planos', {});
 });
 
-router.get('/metro', function(req, res, next) {
-  res.render('metro', {
-    
+router.get('/metro', async function(req, res, next) {
+  let dotenv = req.app.get("dotenv");
+  let dao = new DAO(dotenv["DB_HOST"], dotenv["DB_USER"], dotenv["DB_PASS"], dotenv["DB_NAME"]);
+  let stops = await dao.getMetroStops();
+  let stopRoutes = {};
+  
+  for (const stop of stops) {
+    stopRoutes[stop.STOP_ID] = await dao.getMetroRoutesSingleByStopId(stop.STOP_ID);
+  }
 
-  });
+  res.render('metro', {stops: stops, stopRoutes: stopRoutes});
 });
 
 router.get('/metro/paradaMetro', function(req, res, next) {

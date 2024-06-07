@@ -1,6 +1,7 @@
 import csv
 from isort import file
 import mysql.connector
+import os
 
 # Leer vars del dotenv
 dotenv = {}
@@ -19,8 +20,8 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 
 prefix = '/home/sdiezg/Projects/iMove/data/'
-dirs = ['renfe']
-categories = ['routes', 'stops', 'calendar', 'trips', 'stop_times']
+dirs = ['metro', 'renfe']
+categories = ['routes', 'stops', 'calendar', 'trips', 'stop_times', 'frequencies']
 insert_headers = {}
 insert_data = {}
 
@@ -31,34 +32,39 @@ def read_data(category: str, filename: str):
         i = 0
         for row in csvreader:
             if i == 0:
-                insert_headers[category] = row
+                insert_headers[category] = [field.upper() for field in row]
             else:
                 insert_data[category].append(row)
             i = i + 1
 
 def insert_into_db(dir_name: str, table_name: str, headers: list, data: list):
     headers_str = ", ".join(headers)
-    sql_temp = f"INSERT INTO {dir_name}_{table_name} ({headers_str}) VALUES"
+    sql_temp = f"INSERT INTO {dir_name}_{table_name} ({headers_str}) VALUES "
 
     for row in data:
-        sql = sql_temp + "('" + ("', '".join(row)) + "')"
-        #print(sql)
-        mycursor.execute(sql)
+        sql = sql_temp + "(" + (", ".join(["%s" for item in row])) + ");"
+        # print(sql)
+        # print(row)
+        mycursor.execute(sql, tuple(row))
     mydb.commit()
     print(f"rows insertadas con exito! [{dir_name}_{table_name}] ({mycursor.rowcount}).")
 
 # Ejecución
 for dir_name in dirs:
     for cat in categories:
-        read_data(cat, prefix + dir_name + "/" + cat + ".txt")
+        filename =  prefix + dir_name + "/" + cat + ".txt"
+        if (not os.path.isfile(filename)):
+            print(f"El archivo {filename} no existe. Pasando al siguiente fichero...")
+            continue
+        read_data(cat, filename)
         insert_into_db(dir_name.upper(), cat.upper(), insert_headers[cat], insert_data[cat])
 
 # Limpieza de Stops. Elimina todas las paradas no madrileñas
 mycursor.execute("DELETE FROM RENFE_STOPS WHERE STOP_ID NOT IN (SELECT RENFE_STOP_TIMES.STOP_ID FROM RENFE_STOP_TIMES INNER JOIN RENFE_TRIPS ON RENFE_STOP_TIMES.TRIP_ID = RENFE_TRIPS.TRIP_ID INNER JOIN RENFE_ROUTES ON RENFE_TRIPS.ROUTE_ID = RENFE_ROUTES.ROUTE_ID)")
 mydb.commit()
-print(f"Stops limpiada! ({mycursor.rowcount})")
+print(f"Renfe_Stops limpiada! ({mycursor.rowcount})")
 
-# Poblar la tabla de stop_routes, que agilizará todas nuestras queries en la aplicación
+# Poblar la tabla de renfe_stop_routes, que agilizará todas nuestras queries en la aplicación
 stop_ids = []
 stop_routes = {}
 mycursor.execute("SELECT STOP_ID FROM RENFE_STOPS")
@@ -76,5 +82,26 @@ for stop_id in stop_routes:
     for route_id in stop_routes[stop_id]:
         mycursor.execute(f"INSERT INTO RENFE_STOP_ROUTES (STOP_ID, ROUTE_ID) VALUES ('{stop_id}', '{route_id}')")
 mydb.commit()
-print(f"Paradas_Rutas insertadas! ({mycursor.rowcount})")
+print(f"Paradas_Rutas de renfe insertadas! ({mycursor.rowcount})")
+
+# Poblar la tabla de metro_stop_routes, que agilizará todas nuestras queries en la aplicación
+stop_ids = []
+stop_routes = {}
+mycursor.execute("SELECT STOP_ID FROM METRO_STOPS")
+
+rows = mycursor.fetchall()
+for row in rows:
+    stop_id = row[0]
+    mycursor.execute(f"SELECT METRO_ROUTES.ROUTE_ID FROM METRO_ROUTES INNER JOIN METRO_TRIPS ON METRO_ROUTES.ROUTE_ID = METRO_TRIPS.ROUTE_ID INNER JOIN METRO_STOP_TIMES ON METRO_TRIPS.TRIP_ID = METRO_STOP_TIMES.TRIP_ID WHERE METRO_STOP_TIMES.STOP_ID = '{stop_id}' GROUP BY METRO_ROUTES.ROUTE_ID")
+    rows_routes = mycursor.fetchall()
+    stop_routes[stop_id] = []
+    for row_routes in rows_routes:
+        stop_routes[stop_id].append(row_routes[0])
+
+for stop_id in stop_routes:
+    for route_id in stop_routes[stop_id]:
+        mycursor.execute(f"INSERT INTO METRO_STOP_ROUTES (STOP_ID, ROUTE_ID) VALUES ('{stop_id}', '{route_id}')")
+mydb.commit()
+print(f"Paradas_Rutas de metro insertadas! ({mycursor.rowcount})")
+
 print("Todo insertado!")

@@ -1,0 +1,5 @@
+service_id,monday,tuesday,wednesday,thursday,friday,saturday,sunday
+4-I12,0,0,0,0,0,1,0
+4-I13,0,0,0,0,0,0,1
+4-I14,1,1,1,1,0,0,0
+4-I15,0,0,0,0,1,0,0

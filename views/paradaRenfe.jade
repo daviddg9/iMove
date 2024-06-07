@@ -1,6 +1,6 @@
 - css_title= "paradaRenfe"
 
-include head.jade
+include head.jade 
   body
     include header.jade 
     .body 
@@ -8,8 +8,8 @@ include head.jade
         .body-child-superior
           .datosParada
             .nombreParada-padre
-              h1#nombre_parada #{stopCard.STOP_NAME}
-            .numerosLineas#lineas
+              h1 #{stopCard.STOP_NAME}
+            .numerosLineas
               each route in routesSingle
                 .numLinea-padre 
                   span(style="background-color: \##{route.ROUTE_COLOR};") #{route.ROUTE_SHORT_NAME}
@@ -20,12 +20,13 @@ include head.jade
           each route in stopCard.ROUTE_LIST
             .card-inferior
               .card-inferior-left
-                .numLinea2#card_linea_corto(style="background-color: \##{route.ROUTE_COLOR};")
+                .numLinea2(style="background-color: \##{route.ROUTE_COLOR};")
                   p #{route.ROUTE_SHORT_NAME}
               .card-inferior-right
-                .nombreParada-parent#card_linea_largo
+                .nombreParada-parent
                   p.nombreParada #{route.ROUTE_LONG_NAME}
-                .container-tiempos#card_tiempos
+                .container-tiempos
                   each stop_time in route.RENFE_STOP_TIMES
                     .tiempo-parent
                       p.tiempo #{stop_time.DEPARTURE_TIME}
+    script(src="/js/relative_times.js")

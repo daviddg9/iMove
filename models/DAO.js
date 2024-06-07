@@ -4,6 +4,7 @@ const Stop = require('./Stop');
 const Route = require('./Route');
 const StopTime = require('./StopTime');
 const Trip = require('./Trip');
+const Calendar = require('./Calendar');
 const DEBUG = false;
 
 
@@ -49,7 +50,11 @@ class DAO {
         return listaObjetos;
     }
 
-    async getStops(where="") {
+    ///////////////////////////////////////////////////////////////////////////
+    //                                 RENFE                                 //
+    ///////////////////////////////////////////////////////////////////////////
+
+    async getRenfeStops(where="") {
         if (this.connection == null)
             await this.connect()
         let sql = "SELECT * FROM RENFE_STOPS";
@@ -62,7 +67,7 @@ class DAO {
         return listaStops;
     }
 
-    async getRoutes(where="") {
+    async getRenfeRoutes(where="") {
         if (this.connection == null)
             await this.connect()
         let sql = "SELECT * FROM RENFE_ROUTES";
@@ -75,9 +80,9 @@ class DAO {
         return listaRoutes;
     }
 
-    async getStopsByRouteId(routeId) {
+    async getRenfeStopsByRouteId(routeId) {
         if (routeId == "") {
-            console.log("El ROUTE_ID no puede estar vacío. (getStopsByRouteId)");
+            console.log("El ROUTE_ID no puede estar vacío. (getRenfeStopsByRouteId)");
             return [];
         }
         if (this.connection == null)
@@ -91,9 +96,9 @@ class DAO {
         return listaStops;
     }
 
-    async getRoutesByStopId(stopId) {
+    async getRenfeRoutesByStopId(stopId) {
         if (stopId == "") {
-            console.log("El STOP_ID no puede estar vacío. (getRoutesByStopId)");
+            console.log("El STOP_ID no puede estar vacío. (getRenfeRoutesByStopId)");
             return [];
         }
         if (this.connection == null)
@@ -107,9 +112,9 @@ class DAO {
         return listaRoutes;
     }
 
-    async getRoutesSingleByStopId(stopId) {
+    async getRenfeRoutesSingleByStopId(stopId) {
         if (stopId == "") {
-            console.log("El STOP_ID no puede estar vacío. (getRoutesByStopId)");
+            console.log("El STOP_ID no puede estar vacío. (getRenfeRoutesSingleByStopId)");
             return [];
         }
         if (this.connection == null)
@@ -138,17 +143,17 @@ class DAO {
         return listaRoutes;
     }
 
-    async getFutureStopTimesByStopId(stopId, timeNow, timeEnd) {
+    async getRenfeFutureStopTimesByStopId(stopId, timeNow, timeEnd) {
         if (stopId == "") {
-            console.log("El STOP_ID no puede estar vacío. (getFutureStopTimesByStopId)");
+            console.log("El STOP_ID no puede estar vacío. (getRenfeFutureStopTimesByStopId)");
             return [];
         }
         if (timeNow == "") {
-            console.log("El timeNow no puede estar vacío. (getFutureStopTimesByStopId)");
+            console.log("El timeNow no puede estar vacío. (getRenfeFutureStopTimesByStopId)");
             return [];
         }
         if (timeEnd == "") {
-            console.log("El timeEnd no puede estar vacío. (getFutureStopTimesByStopId)");
+            console.log("El timeEnd no puede estar vacío. (getRenfeFutureStopTimesByStopId)");
             return [];
         }
         if (this.connection == null)
@@ -159,33 +164,12 @@ class DAO {
         let listaStopTimes = await this.execQueryToObjectList(sql, StopTime);
         //TODO: Checkear errores
 
-        // for (let i = 0; i < listaStopTimes.length; i++) {
-        //     const stopTime = listaStopTimes[i];
-        //     let del = false;
-        //     for (let j = i + 1; j < listaStopTimes.length; j++) {
-        //         const stopTime2 = listaStopTimes[j];
-        //         if (stopTime.TRIP_ID == stopTime2.TRIP_ID &&
-        //             (
-        //                 stopTime.DEPARTURE_TIME == stopTime2.DEPARTURE_TIME ||
-        //                 stopTime.ARRIVAL_TIME == stopTime2.ARRIVAL_TIME
-        //             )) {
-        //             del = true;
-        //             break;
-        //         }
-        //     }
-        //     if (del) {
-        //         listaStopTimes.splice(j, 1);
-        //         i = i - 1;
-        //         continue;
-        //     }
-        // }
-
         return listaStopTimes;
     }
 
-    async getTripsByRouteId(routeId) {
+    async getRenfeTripsByRouteId(routeId) {
         if (routeId == "") {
-            console.log("El routeId no puede estar vacío. (getTripsByRouteId)");
+            console.log("El routeId no puede estar vacío. (getRenfeTripsByRouteId)");
             return [];
         }
         if (this.connection == null)
@@ -195,6 +179,219 @@ class DAO {
         let listaRoutes = await this.execQueryToObjectList(sql, Trip);
         //TODO: Checkear errores
         return listaRoutes;
+    }
+
+    async getRenfeTripsByRouteIdAndActiveCalendarList(routeId, calendarList) {
+        if (routeId == "") {
+            console.log("El routeId no puede estar vacío. (getRenfeTripsByRouteIdAndActiveCalendarList)");
+            return [];
+        }
+        if (calendarList.length == 0) {
+            return [];
+        }
+        if (this.connection == null)
+            await this.connect()
+        let listaTrips = [];
+        for (const calendar of calendarList) {
+            let sql = "SELECT * FROM RENFE_TRIPS " + 
+            "WHERE ROUTE_ID = '" + routeId + "' AND " +
+            "SERVICE_ID = '" + calendar.SERVICE_ID + "'"; 
+            listaTrips = listaTrips.concat(await this.execQueryToObjectList(sql, Trip));
+        }
+        //TODO: Checkear errores
+        return listaTrips;
+    }
+
+    async getRenfeCalendarEntriesByDayAndDate(day_of_week, date_ymd) {
+        if (day_of_week == "") {
+            console.log("El day_of_week no puede estar vacío. (getRenfeCalendarEntriesByDayAndDate)");
+            return [];
+        }
+        if (date_ymd == "") {
+            console.log("El date_ymd no puede estar vacío. (getRenfeCalendarEntriesByDayAndDate)");
+            return [];
+        }
+        if (this.connection == null)
+            await this.connect()
+        let sql = "SELECT * FROM RENFE_CALENDAR " + 
+        "WHERE " + day_of_week + " = '1' AND " +
+        "CAST(START_DATE AS SIGNED) <= " + date_ymd + " AND " + 
+        "CAST(END_DATE AS SIGNED) >= " + date_ymd; 
+        let listaCalendars = await this.execQueryToObjectList(sql, Calendar);
+        //TODO: Checkear errores
+        return listaCalendars;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    //                                 METRO                                 //
+    ///////////////////////////////////////////////////////////////////////////
+
+    async getMetroStops(where="") {
+        if (this.connection == null)
+            await this.connect()
+        let sql = "SELECT * FROM METRO_STOPS";
+        if (where.length > 0)
+            sql += " WHERE " + where;
+        sql += " ORDER BY STOP_NAME ASC;";
+        
+        let listaStops = await this.execQueryToObjectList(sql, Stop);
+        //TODO: Checkear errores
+        return listaStops;
+    }
+
+    async getMetroRoutes(where="") {
+        if (this.connection == null)
+            await this.connect()
+        let sql = "SELECT * FROM METRO_ROUTES";
+        if (where.length > 0)
+            sql += " WHERE " + where;
+        sql += ";";
+        
+        let listaRoutes = await this.execQueryToObjectList(sql, Route);
+        //TODO: Checkear errores
+        return listaRoutes;
+    }
+
+    async getMetroStopsByRouteId(routeId) {
+        if (routeId == "") {
+            console.log("El ROUTE_ID no puede estar vacío. (getMetroStopsByRouteId)");
+            return [];
+        }
+        if (this.connection == null)
+            await this.connect()
+        let sql = "SELECT * FROM METRO_STOPS " + 
+        "WHERE METRO_STOPS.STOP_ID IN ( " + 
+            "SELECT STOP_ID FROM METRO_STOP_ROUTES WHERE ROUTE_ID = '" + routeId + "' " + 
+        ");";
+        let listaStops = await this.execQueryToObjectList(sql, Stop);
+        //TODO: Checkear errores
+        return listaStops;
+    }
+
+    async getMetroRoutesByStopId(stopId) {
+        if (stopId == "") {
+            console.log("El STOP_ID no puede estar vacío. (getMetroRoutesByStopId)");
+            return [];
+        }
+        if (this.connection == null)
+            await this.connect()
+        let sql = "SELECT * FROM METRO_ROUTES " + 
+        "WHERE METRO_ROUTES.ROUTE_ID IN ( " + 
+            "SELECT ROUTE_ID FROM METRO_STOP_ROUTES WHERE STOP_ID = '" + stopId + "'" + 
+        ");";
+        let listaRoutes = await this.execQueryToObjectList(sql, Route);
+        //TODO: Checkear errores
+        return listaRoutes;
+    }
+
+    async getMetroRoutesSingleByStopId(stopId) {
+        if (stopId == "") {
+            console.log("El STOP_ID no puede estar vacío. (getMetroRoutesSingleByStopId)");
+            return [];
+        }
+        if (this.connection == null)
+            await this.connect()
+        let sql = "SELECT * FROM METRO_ROUTES " + 
+        "WHERE METRO_ROUTES.ROUTE_ID IN ( " + 
+            "SELECT ROUTE_ID FROM METRO_STOP_ROUTES WHERE STOP_ID = '" + stopId + "'" + 
+        ");";
+        let listaRoutes = await this.execQueryToObjectList(sql, Route);
+        //TODO: Checkear errores
+
+        for (let i = listaRoutes.length - 1; i > 0; i--) {
+            const route_og = listaRoutes[i];
+            let del = false;
+            for (let j = i - 1; j >= 0; j--) {
+                const route_compare = listaRoutes[j];
+                if (route_og.ROUTE_SHORT_NAME == route_compare.ROUTE_SHORT_NAME) {
+                    del = true;
+                    break;
+                }
+            }
+            if (del)
+                listaRoutes.splice(i, 1);
+        }
+
+        return listaRoutes;
+    }
+
+    async getMetroFutureStopTimesByStopId(stopId, timeNow, timeEnd) {
+        if (stopId == "") {
+            console.log("El STOP_ID no puede estar vacío. (getMetroFutureStopTimesByStopId)");
+            return [];
+        }
+        if (timeNow == "") {
+            console.log("El timeNow no puede estar vacío. (getMetroFutureStopTimesByStopId)");
+            return [];
+        }
+        if (timeEnd == "") {
+            console.log("El timeEnd no puede estar vacío. (getMetroFutureStopTimesByStopId)");
+            return [];
+        }
+        if (this.connection == null)
+            await this.connect()
+        let sql = "SELECT TRIP_ID, STOP_ID, ARRIVAL_TIME, DEPARTURE_TIME, STOP_SEQUENCE FROM METRO_STOP_TIMES " + 
+        "WHERE STOP_ID = '" + stopId + "' AND DEPARTURE_TIME >= TIME('" + timeNow + "') AND ARRIVAL_TIME <= TIME('" + timeEnd + "') " +
+        "ORDER BY DEPARTURE_TIME";
+        let listaStopTimes = await this.execQueryToObjectList(sql, StopTime);
+        //TODO: Checkear errores
+
+        return listaStopTimes;
+    }
+
+    async getMetroTripsByRouteId(routeId) {
+        if (routeId == "") {
+            console.log("El routeId no puede estar vacío. (getMetroTripsByRouteId)");
+            return [];
+        }
+        if (this.connection == null)
+            await this.connect()
+        let sql = "SELECT * FROM METRO_TRIPS " + 
+        "WHERE ROUTE_ID = '" + routeId + "'"; 
+        let listaRoutes = await this.execQueryToObjectList(sql, Trip);
+        //TODO: Checkear errores
+        return listaRoutes;
+    }
+
+    async getMetroTripsByRouteIdAndActiveCalendarList(routeId, calendarList) {
+        if (routeId == "") {
+            console.log("El routeId no puede estar vacío. (getMetroTripsByRouteIdAndActiveCalendarList)");
+            return [];
+        }
+        if (calendarList.length == 0) {
+            return [];
+        }
+        if (this.connection == null)
+            await this.connect()
+        let listaTrips = [];
+        for (const calendar of calendarList) {
+            let sql = "SELECT * FROM METRO_TRIPS " + 
+            "WHERE ROUTE_ID = '" + routeId + "' AND " +
+            "SERVICE_ID = '" + calendar.SERVICE_ID + "'"; 
+            listaTrips = listaTrips.concat(await this.execQueryToObjectList(sql, Trip));
+        }
+        //TODO: Checkear errores
+        return listaTrips;
+    }
+
+    async getMetroCalendarEntriesByDayAndDate(day_of_week, date_ymd) {
+        if (day_of_week == "") {
+            console.log("El day_of_week no puede estar vacío. (getMetroCalendarEntriesByDayAndDate)");
+            return [];
+        }
+        if (date_ymd == "") {
+            console.log("El date_ymd no puede estar vacío. (getMetroCalendarEntriesByDayAndDate)");
+            return [];
+        }
+        if (this.connection == null)
+            await this.connect()
+        let sql = "SELECT * FROM METRO_CALENDAR " + 
+        "WHERE " + day_of_week + " = '1' AND " +
+        "CAST(START_DATE AS SIGNED) <= " + date_ymd + " AND " + 
+        "CAST(END_DATE AS SIGNED) >= " + date_ymd; 
+        let listaCalendars = await this.execQueryToObjectList(sql, Calendar);
+        //TODO: Checkear errores
+        return listaCalendars;
     }
 }
 
