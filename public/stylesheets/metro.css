@@ -105,7 +105,15 @@ input {
     display: flex;
     align-items: center;
     padding: 0.625rem; 
-    border-bottom: 0.0625rem solid #ccc; 
+    /* border-bottom: 0.0625rem solid #ccc;  */
+}
+
+.station-data {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    
 }
   
 .icon {
@@ -119,28 +127,45 @@ input {
 }
   
 .station-name {
-    flex-grow: 1;
+    width: max-content;
 }
-  
+
+.station-numbers {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: max-content;
+    width: auto;
+}
+
 .station-number {
-    background-color: #4CAF50;
     color: white;
-    border-radius: 50%;
-    width: 1.25rem; 
-    height: 1.25rem; 
+    min-width: 1em;
+    width: max-content; 
+    height: auto;
+    padding: 0.2rem; 
+    margin: 0.2rem; 
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.875rem; 
+    font-size: 0.875rem;
+    font-weight: bold;
 }
   
 .stationLink{
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    background-color: rgb(31, 31, 31);
     color: white;
-    text-decoration: none;
+    padding: 0.5em;
 }
   
 .clockIcon{

@@ -9,10 +9,6 @@ function timeToMinsRemaining(time) {
     let diff_ms = date_train - date_now;
     let diff_mins = Math.floor(diff_ms / 60000);
 
-    // console.log(date_train);
-    // console.log("Faltan " + diff_mins + " minutos.");
-    // console.log("");
-
     return diff_mins;
 }
 
@@ -61,6 +57,7 @@ let date_now = new Date();
 // Restamos 1 segundo para que las horas se actualizen al segundo 01,
 // y se pongan bien los minutos restantes.
 let seconds_now = date_now.getSeconds() - 1;
+
 if (seconds_now == 0) {
     setInterval(() => {
         updateTimes(time_elements, raw_times);

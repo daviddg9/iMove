@@ -9,16 +9,22 @@ include head.jade
           h1 Metro
       .options
         .planoRenfe
-          button.planoRenfe-button
-            img(src="/images/mapIcon.svg", alt="").mapIcon
-          p Planos
+          form(method="get", action="/transportePublico/metro/planos")
+            button.planoRenfe-button
+              img(src="/images/mapIcon.svg", alt="").mapIcon
+            p Planos
       .paradas
         input(type='text', placeholder='Nombre de parada').input
 
-      ul.station-list
-          li.station
-            a.stationLink(href="/transportePublico/metro/paradaMetro")
-              img(src="/images/renfeLogo.png", alt="").icon
-              .station-name
-              .station-number 
+      form(method="get", action="/transportePublico/metro/paradaMetro")
+        ul.station-list
+          each stop in stops
+            li.station
+              button.stationLink(type="submit", name="stop_id", value="#{stop.STOP_ID}")
+                .station-data
+                  img(src="/images/renfeLogo.png", alt="").icon
+                  .station-name #{stop.STOP_NAME}
+                .station-numbers
+                  each route in stopRoutes[stop.STOP_NAME]
+                    .station-number(style="background-color: \##{route.ROUTE_COLOR}; color: \##{route.ROUTE_TEXT_COLOR}") #{route.ROUTE_SHORT_NAME} 
   

@@ -239,6 +239,38 @@ class DAO {
         return listaStops;
     }
 
+    async getMetroStopsSingle(where="") {
+        if (this.connection == null)
+            await this.connect()
+        let sql = "SELECT * FROM METRO_STOPS";
+        if (where.length > 0)
+            sql += " WHERE " + where;
+        sql += " ORDER BY STOP_NAME ASC;";
+        
+        let listaStops = await this.execQueryToObjectList(sql, Stop);
+
+        for (let i = 0; i < listaStops.length; i++) {
+            const stop = listaStops[i];
+            let compId = stop.STOP_ID;
+
+            for (let j = i + 1; j < listaStops.length; j++) {
+                const stopComp = listaStops[j];
+
+                let stopNameNorm = stop.STOP_NAME.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+                let stopCompNameNorm = stopComp.STOP_NAME.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+                if (stopNameNorm != stopCompNameNorm)
+                    break;
+                compId += "+" + stopComp.STOP_ID;
+                listaStops.splice(j, 1);
+                j--;
+            }
+            listaStops[i].STOP_ID = compId;
+        }
+        //TODO: Checkear errores
+        return listaStops;
+    }
+
     async getMetroRoutes(where="") {
         if (this.connection == null)
             await this.connect()
@@ -284,16 +316,18 @@ class DAO {
         return listaRoutes;
     }
 
-    async getMetroRoutesSingleByStopId(stopId) {
-        if (stopId == "") {
-            console.log("El STOP_ID no puede estar vacío. (getMetroRoutesSingleByStopId)");
+    async getMetroRoutesSingleByStopName(stopName) {
+        if (stopName == "") {
+            console.log("El STOP_NAME no puede estar vacío. (getMetroRoutesSingleByStopName)");
             return [];
         }
         if (this.connection == null)
             await this.connect()
         let sql = "SELECT * FROM METRO_ROUTES " + 
         "WHERE METRO_ROUTES.ROUTE_ID IN ( " + 
-            "SELECT ROUTE_ID FROM METRO_STOP_ROUTES WHERE STOP_ID = '" + stopId + "'" + 
+            "SELECT METRO_STOP_ROUTES.ROUTE_ID FROM METRO_STOP_ROUTES " + 
+            "INNER JOIN METRO_STOPS on METRO_STOP_ROUTES.STOP_ID = METRO_STOPS.STOP_ID " +
+            "WHERE METRO_STOPS.STOP_NAME = '" + stopName + "'" + 
         ");";
         let listaRoutes = await this.execQueryToObjectList(sql, Route);
         //TODO: Checkear errores

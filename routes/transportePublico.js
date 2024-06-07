@@ -66,20 +66,23 @@ router.get('/renfe/paradaRenfe', async function(req, res, next) {
 });
 
 router.get('/renfe/planos', function(req, res, next) {
-
-
-  res.render('planos', {});
+  res.render('planos', {plano: "renfe"});
 });
 
 router.get('/metro', async function(req, res, next) {
   let dotenv = req.app.get("dotenv");
   let dao = new DAO(dotenv["DB_HOST"], dotenv["DB_USER"], dotenv["DB_PASS"], dotenv["DB_NAME"]);
-  let stops = await dao.getMetroStops();
+  let stops = await dao.getMetroStopsSingle();
   let stopRoutes = {};
   
   for (const stop of stops) {
-    stopRoutes[stop.STOP_ID] = await dao.getMetroRoutesSingleByStopId(stop.STOP_ID);
+    stopRoutes[stop.STOP_NAME] = await dao.getMetroRoutesSingleByStopName(stop.STOP_NAME);
   }
+
+  //
+  console.log(stopRoutes);
+  stops = stops.filter((stop) => stopRoutes[stop.STOP_NAME].length > 0);
+  //
 
   res.render('metro', {stops: stops, stopRoutes: stopRoutes});
 });
@@ -91,12 +94,8 @@ router.get('/metro/paradaMetro', function(req, res, next) {
 });
 
 router.get('/metro/planos', function(req, res, next) {
-
-
-  res.render('planos', {});
+  res.render('planos', {plano: "metro"});
 });
-
-
 
 router.get('/interurbanos', function(req, res, next) {
   res.render('interurbanos', {
@@ -115,9 +114,8 @@ router.get('/interurbanos/parada', function(req, res, next) {
 });
 
 router.get('/interurbanos/planos', function(req, res, next) {
-
-
-  res.render('planos', {});
+  //TODO: Filtrar por parada
+  res.render('planos', {planos: "interurbanos"});
 });
 
 router.get('/urbanos', function(req, res, next) {

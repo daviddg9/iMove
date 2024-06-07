@@ -9,9 +9,10 @@ include head.jade
           h1 Cercanias
       .options
         .planoRenfe
-          button.planoRenfe-button
-            img(src="/images/mapIcon.svg", alt="").mapIcon
-          p Planos
+          form(method="get", action="/transportePublico/renfe/planos")
+            button.planoRenfe-button
+              img(src="/images/mapIcon.svg", alt="").mapIcon
+            p Planos
       .paradas
         input(type='text', placeholder='Nombre de parada').input
 
