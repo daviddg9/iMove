@@ -5,6 +5,7 @@ const Route = require('./Route');
 const StopTime = require('./StopTime');
 const Trip = require('./Trip');
 const Calendar = require('./Calendar');
+const Frequency = require('./Frequency');
 const DEBUG = false;
 
 
@@ -445,11 +446,52 @@ class DAO {
         }
         if (this.connection == null)
             await this.connect()
-        let sql = "SELECT TRIP_ID, STOP_ID, ARRIVAL_TIME, DEPARTURE_TIME, STOP_SEQUENCE FROM METRO_STOP_TIMES " + 
-        "WHERE TRIP_ID = '" + tripId + "' AND DEPARTURE_TIME >= TIME('" + timeNow + "') AND ARRIVAL_TIME <= TIME('" + timeEnd + "') " +
-        "ORDER BY DEPARTURE_TIME";
-        let listaStopTimes = await this.execQueryToObjectList(sql, StopTime);
+        let sql = "SELECT * FROM METRO_FREQUENCIES " + 
+        "WHERE TRIP_ID = '" + tripId + "' AND START_TIME <= TIME('" + timeNow + "') AND END_TIME >= TIME('" + timeEnd + "') " +
+        "ORDER BY END_TIME";
+        let listaFrequencies = await this.execQueryToObjectList(sql, Frequency);
         //TODO: Checkear errores
+
+        let listaStopTimes = [];
+        let timeNowParts = timeNow.split(":");
+        let dateTimeNow = new Date();
+        let dateTimeEnd = new Date();
+        let dateTimeNowAdder = new Date();
+
+        Date.prototype.addSeconds = function(s) {
+            this.setSeconds(this.getSeconds() + s);
+            return this;
+        }
+
+        dateTimeNow.setHours(parseInt(timeNowParts[0]), parseInt(timeNowParts[1]), parseInt(timeNowParts[2]));
+        dateTimeNowAdder.setHours(parseInt(timeNowParts[0]), parseInt(timeNowParts[1]), parseInt(timeNowParts[2]));
+        Object.assign(dateTimeEnd, dateTimeNow);
+        dateTimeEnd.addSeconds(1800);
+        
+        for (const frequency of listaFrequencies) {
+            let secondsStartTime, secondsNow, secondsDiff, secondsInterval, secondsRemainder, secondsFirstAdd;
+            let startTimeParts = frequency.START_TIME.split(":");
+            
+            secondsInterval = parseInt(frequency.HEADWAY_SECS);
+            secondsStartTime = (parseInt(startTimeParts[0]) * 3600) + (parseInt(startTimeParts[1]) * 60) + parseInt(startTimeParts[2]);
+            secondsNow = (parseInt(timeNowParts[0]) * 3600) + (parseInt(timeNowParts[1]) * 60) + parseInt(timeNowParts[2]);
+            secondsDiff = secondsNow - secondsStartTime;
+            secondsRemainder = secondsDiff % secondsInterval;
+            secondsFirstAdd = secondsInterval - secondsRemainder;
+
+            console.log(frequency);
+
+            while (dateTimeNowAdder < dateTimeEnd) {
+                let secondsToAdd = secondsInterval;
+                if (secondsFirstAdd > 0) {
+                    secondsToAdd = secondsFirstAdd;
+                    secondsFirstAdd = 0;
+                }
+                dateTimeNowAdder.addSeconds(secondsToAdd);
+                let trainTime = ("" + dateTimeNowAdder).split(" ")[4];
+                listaStopTimes.push(new StopTime(tripId, "", "", trainTime, ""));
+            }
+        }
 
         return listaStopTimes;
     }

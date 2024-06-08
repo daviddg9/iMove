@@ -114,7 +114,19 @@ router.get('/metro/paradaMetro', async function(req, res, next) {
 
   for (const [route_id, trips] of Object.entries(routeTrips)) {
     for (const trip of trips) {
-      tripStopTimes[trip.TRIP_ID] = await dao.getMetroFutureStopTimesByTripId(trip.TRIP_ID, time_now, time_end);
+      let stopTimes = await dao.getMetroFutureStopTimesByTripIdFromFrequencies(trip.TRIP_ID, time_now, time_end);
+      if (stopTimes.length == 0)
+        continue;
+      tripStopTimes[trip.TRIP_ID] = stopTimes;
+    }
+  }
+
+  // Si no hay datos de frecuencias, buscamos en stop_times.
+  if (Object.entries(tripStopTimes).length == 0) {
+    for (const [route_id, trips] of Object.entries(routeTrips)) {
+      for (const trip of trips) {
+        tripStopTimes[trip.TRIP_ID] = await dao.getMetroFutureStopTimesByTripId(trip.TRIP_ID, time_now, time_end);
+      }
     }
   }
 
