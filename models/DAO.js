@@ -430,6 +430,30 @@ class DAO {
         return listaStopTimes;
     }
 
+    async getMetroFutureStopTimesByTripIdFromFrequencies(tripId, timeNow, timeEnd) {
+        if (tripId == "") {
+            console.log("El STOP_ID no puede estar vacío. (getMetroFutureStopTimesByStopId)");
+            return [];
+        }
+        if (timeNow == "") {
+            console.log("El timeNow no puede estar vacío. (getMetroFutureStopTimesByStopId)");
+            return [];
+        }
+        if (timeEnd == "") {
+            console.log("El timeEnd no puede estar vacío. (getMetroFutureStopTimesByStopId)");
+            return [];
+        }
+        if (this.connection == null)
+            await this.connect()
+        let sql = "SELECT TRIP_ID, STOP_ID, ARRIVAL_TIME, DEPARTURE_TIME, STOP_SEQUENCE FROM METRO_STOP_TIMES " + 
+        "WHERE TRIP_ID = '" + tripId + "' AND DEPARTURE_TIME >= TIME('" + timeNow + "') AND ARRIVAL_TIME <= TIME('" + timeEnd + "') " +
+        "ORDER BY DEPARTURE_TIME";
+        let listaStopTimes = await this.execQueryToObjectList(sql, StopTime);
+        //TODO: Checkear errores
+
+        return listaStopTimes;
+    }
+
     async getMetroTripsByRouteId(routeId) {
         if (routeId == "") {
             console.log("El routeId no puede estar vacío. (getMetroTripsByRouteId)");

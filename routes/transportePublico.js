@@ -96,11 +96,6 @@ router.get('/metro/paradaMetro', async function(req, res, next) {
   let routeTrips = {};
   let tripStopTimes = {};
 
-  let date_now = "" + new Date();
-  let date_end = "" + new Date().addHours(1);
-  let time_now = date_now.split(" ")[4];
-  let time_end = date_end.split(" ")[4];
-
   for (const stop_id of stop_ids) {
     stops = stops.concat((await dao.getMetroStops("STOP_ID = '" + stop_id + "'"))[0]);
     stopRoutes[stop_id] = await dao.getMetroRoutesByStopId(stop_id);
@@ -112,37 +107,23 @@ router.get('/metro/paradaMetro', async function(req, res, next) {
     }
   }
 
+  let date_now = "" + new Date();
+  let date_end = "" + new Date().addHours(1);
+  let time_now = date_now.split(" ")[4];
+  let time_end = date_end.split(" ")[4];
+
   for (const [route_id, trips] of Object.entries(routeTrips)) {
     for (const trip of trips) {
       tripStopTimes[trip.TRIP_ID] = await dao.getMetroFutureStopTimesByTripId(trip.TRIP_ID, time_now, time_end);
     }
   }
 
-  console.log(tripStopTimes);
-
-  /*
-  for (const stop_id of stop_ids) {
-    let stop = (await dao.getMetroStops("STOP_ID = '" + stop_id + "'"))[0];
-    let route = (await dao.getMetroRoutesByStopId(stop_id))[0];
-    let stopTimes = await dao.getMetroFutureStopTimesByStopId(stop_id, time_now, time_end);
-    let activeTrips = await dao.getMetroTripsByRouteIdAndActiveCalendarList(route.ROUTE_ID, calendarList);
-
-    console.log(route);
-
-    let activeTripIds = [];
-    
-    for (const tripsDb of activeTrips) {
-      activeTripIds.push(tripsDb.TRIP_ID);
+  for (const [route_id, trips] of Object.entries(routeTrips)) {
+    for (const trip of trips) {
+       if (tripStopTimes[trip.TRIP_ID].length == 0)
+        delete routeTrips[route_id];
     }
-    
-    //TODO: Checkear erores
-    stopTimes = await stopTimes.filter(stopTime => activeTripIds.includes(stopTime.TRIP_ID));
-
-    stops = stops.concat(stop);
-    stopTrips[stop_id] = activeTrips;
-    stopStopTimes[stop_id] = stopTimes;
   }
-  */
 
   res.render('paradaMetro', {stops: stops, stopRoutes: stopRoutes, routeTrips: routeTrips, tripStopTimes: tripStopTimes});
 });

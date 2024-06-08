@@ -20,16 +20,17 @@ include head.jade
             p Tiempo real
           each stop in stops
             each route in stopRoutes[stop.STOP_ID]
-              each trip in routeTrips[route.ROUTE_ID]
-                .card-inferior
-                  .card-inferior-left
-                    .numLinea2(style="background-color: \##{route.ROUTE_COLOR};")
-                      p #{route.ROUTE_SHORT_NAME}
-                  .card-inferior-right
-                    .nombreParada-parent
-                      p.nombreParada #{trip.TRIP_SHORT_NAME}
-                    .container-tiempos
-                      each stop_time in tripStopTimes[trip.TRIP_ID]
-                        .tiempo-parent
-                          p.tiempo #{stop_time.DEPARTURE_TIME}
+              if Object.keys(routeTrips).length > 0
+                each trip in routeTrips[route.ROUTE_ID]
+                  .card-inferior
+                    .card-inferior-left
+                      .numLinea2(style="background-color: \##{route.ROUTE_COLOR};")
+                        p #{route.ROUTE_SHORT_NAME}
+                    .card-inferior-right
+                      .nombreParada-parent
+                        p.nombreParada #{trip.TRIP_SHORT_NAME}
+                      .container-tiempos
+                        each stop_time in tripStopTimes[trip.TRIP_ID]
+                          .tiempo-parent
+                            p.tiempo #{stop_time.DEPARTURE_TIME}
     //script(src="/js/relative_times.js")
