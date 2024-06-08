@@ -14,7 +14,9 @@ include head.jade
                 each route in stopRoutes[stop.STOP_ID]
                   .numLinea-padre 
                     span(style="background-color: \##{route.ROUTE_COLOR};") #{route.ROUTE_SHORT_NAME}
-
+        .card_inferior#warning_no_data
+          p Actualmente no disponemos de ningún servicio
+          img(src="/images/errorIcon.svg", alt="")
         .body-child-inferior 
           .text-superior
             p Tiempo real

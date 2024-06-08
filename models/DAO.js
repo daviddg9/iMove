@@ -479,8 +479,6 @@ class DAO {
             secondsRemainder = secondsDiff % secondsInterval;
             secondsFirstAdd = secondsInterval - secondsRemainder;
 
-            console.log(frequency);
-
             while (dateTimeNowAdder < dateTimeEnd) {
                 let secondsToAdd = secondsInterval;
                 if (secondsFirstAdd > 0) {

@@ -115,8 +115,8 @@ router.get('/metro/paradaMetro', async function(req, res, next) {
   for (const [route_id, trips] of Object.entries(routeTrips)) {
     for (const trip of trips) {
       let stopTimes = await dao.getMetroFutureStopTimesByTripIdFromFrequencies(trip.TRIP_ID, time_now, time_end);
-      if (stopTimes.length == 0)
-        continue;
+      //if (stopTimes.length == 0)
+      //  continue;
       tripStopTimes[trip.TRIP_ID] = stopTimes;
     }
   }
@@ -130,12 +130,20 @@ router.get('/metro/paradaMetro', async function(req, res, next) {
     }
   }
 
-  for (const [route_id, trips] of Object.entries(routeTrips)) {
-    for (const trip of trips) {
-       if (tripStopTimes[trip.TRIP_ID].length == 0)
-        delete routeTrips[route_id];
-    }
-  }
+  // for (const [route_id, trips] of Object.entries(routeTrips)) {
+  //   for (const trip of trips) {
+  //      if (tripStopTimes[trip.TRIP_ID].length == 0) {
+  //         for (const [stop_id, routes] of Object.entries(stopRoutes)) {
+  //           for (const route of routes) {
+  //             if (route.ROUTE_ID == route_id)
+  //               delete stopRoutes[stop_id];
+  //           }
+  //         }
+  //         delete routeTrips[route_id];
+  //         delete tripStopTimes[trip.TRIP_ID];
+  //      }
+  //   }
+  // }
 
   res.render('paradaMetro', {stops: stops, stopRoutes: stopRoutes, routeTrips: routeTrips, tripStopTimes: tripStopTimes});
 });

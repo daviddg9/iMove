@@ -45,33 +45,38 @@ function refreshIfTimesEmpty(time_containers) {
 
 let time_containers = document.getElementsByClassName("container-tiempos");
 let time_elements = document.getElementsByClassName("tiempo");
+let warning = document.getElementById("warning_no_data");
 let raw_times = [];
 
-for (const te of time_elements) {
-    raw_times.push(te.innerHTML);
-}
+if (time_containers.length > 0) {
+    warning.remove();
 
-updateTimes(time_elements, raw_times);
-
-let date_now = new Date();
-// Restamos 1 segundo para que las horas se actualizen al segundo 01,
-// y se pongan bien los minutos restantes.
-let seconds_now = date_now.getSeconds() - 1;
-
-if (seconds_now == 0) {
-    setInterval(() => {
-        updateTimes(time_elements, raw_times);
-        refreshIfTimesEmpty(time_containers);
-    }, 60000);
-}
-else {
-    setTimeout(() => {
-        updateTimes(time_elements, raw_times);
-        refreshIfTimesEmpty(time_containers);
+    for (const te of time_elements) {
+        raw_times.push(te.innerHTML);
+    }
+    
+    updateTimes(time_elements, raw_times);
+    
+    let date_now = new Date();
+    // Restamos 1 segundo para que las horas se actualizen al segundo 01,
+    // y se pongan bien los minutos restantes.
+    let seconds_now = date_now.getSeconds() - 1;
+    
+    if (seconds_now == 0) {
         setInterval(() => {
             updateTimes(time_elements, raw_times);
             refreshIfTimesEmpty(time_containers);
         }, 60000);
-    }, (60 - seconds_now) * 1000);
-
+    }
+    else {
+        setTimeout(() => {
+            updateTimes(time_elements, raw_times);
+            refreshIfTimesEmpty(time_containers);
+            setInterval(() => {
+                updateTimes(time_elements, raw_times);
+                refreshIfTimesEmpty(time_containers);
+            }, 60000);
+        }, (60 - seconds_now) * 1000);
+    
+    }
 }
