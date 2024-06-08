@@ -2,10 +2,11 @@ import csv
 from isort import file
 import mysql.connector
 import os
+import codecs
 
 # Leer vars del dotenv
 dotenv = {}
-with open("/home/sdiezg/Projects/iMove/.env", mode="r") as dt:
+with open("C:/Users/USUARIO/Desktop/iMove/iMove/.env", mode="r") as dt:
     dotenv_reader = csv.reader(dt, delimiter="=")
     for dotenv_field in dotenv_reader:
         dotenv[str(dotenv_field[0])] = str(dotenv_field[1])
@@ -27,7 +28,7 @@ insert_data = {}
 
 def read_data(category: str, filename: str):
     insert_data[category] = []
-    with open(filename, mode='r') as csvfile:
+    with codecs.open(filename, mode='r', encoding= "utf-8") as csvfile:
         csvreader = csv.reader(csvfile, delimiter=',')
         i = 0
         for row in csvreader:

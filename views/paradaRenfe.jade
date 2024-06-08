@@ -13,7 +13,9 @@ include head.jade
               each route in routesSingle
                 .numLinea-padre 
                   span(style="background-color: \##{route.ROUTE_COLOR};") #{route.ROUTE_SHORT_NAME}
-
+        .card_inferior#warning_no_data
+          p Actualmente no disponemos de ningún servicio
+          img(src="/images/errorIcon.svg", alt="")
         .body-child-inferior 
           .text-superior  
             p Tiempo real
@@ -29,4 +31,5 @@ include head.jade
                   each stop_time in route.RENFE_STOP_TIMES
                     .tiempo-parent
                       p.tiempo #{stop_time.DEPARTURE_TIME}
+
     script(src="/js/relative_times.js")
