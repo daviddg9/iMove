@@ -44,13 +44,13 @@ const servicePicker = async (req, res, next) => {
 
     let calendarEntries = [];
 
-    if (req.url.indexOf("renfe")) {
+    if (req.url.indexOf("renfe") != -1) {
         calendarEntries = await dao.getRenfeCalendarEntriesByDayAndDate(day, date_ymd);
     }
-    else if (req.url.indexOf("metro")) {
+    else if (req.url.indexOf("metro") != -1) {
         calendarEntries = await dao.getMetroCalendarEntriesByDay(day);
     }
-    else if (req.url.indexOf("interurbanos")) {
+    else if (req.url.indexOf("interurbanos") != -1) {
         // calendarEntries = await dao.getInterurbanosCalendarEntriesByDayAndDate(day, date_ymd);
     }
 

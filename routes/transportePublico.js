@@ -81,19 +81,70 @@ router.get('/metro', async function(req, res, next) {
 
   // Mostramos solo las paradas que pertenecen a una ruta, ya que POR ALGUNA RAZÓN, los datos
   // de metro incluyen en paradas cosas como entradas a las estaciones, ascensores, etc.
-  stops = stops.filter((stop) => stopRoutes[stop.STOP_NAME].length > 0);
+  //stops = stops.filter((stop) => stopRoutes[stop.STOP_NAME].length > 0);
 
   res.render('metro', {stops: stops, stopRoutes: stopRoutes});
 });
 
 router.get('/metro/paradaMetro', async function(req, res, next) {
   let stop_ids = req.query.stop_id.split("+");
+  let calendarList = req.body.calendarList;
+  let dotenv = req.app.get("dotenv");
+  let dao = new DAO(dotenv["DB_HOST"], dotenv["DB_USER"], dotenv["DB_PASS"], dotenv["DB_NAME"]);
+  let stops = [];
+  let stopRoutes = {};
+  let routeTrips = {};
+  let tripStopTimes = {};
+
+  let date_now = "" + new Date();
+  let date_end = "" + new Date().addHours(1);
+  let time_now = date_now.split(" ")[4];
+  let time_end = date_end.split(" ")[4];
 
   for (const stop_id of stop_ids) {
-    
+    stops = stops.concat((await dao.getMetroStops("STOP_ID = '" + stop_id + "'"))[0]);
+    stopRoutes[stop_id] = await dao.getMetroRoutesByStopId(stop_id);
   }
 
-  res.render('paradaMetro', {});
+  for (const [stop_id, routes] of Object.entries(stopRoutes)) {
+    for (const route of routes) {
+      routeTrips[route.ROUTE_ID] = await dao.getMetroTripsByRouteIdAndActiveCalendarList(route.ROUTE_ID, calendarList);
+    }
+  }
+
+  for (const [route_id, trips] of Object.entries(routeTrips)) {
+    for (const trip of trips) {
+      tripStopTimes[trip.TRIP_ID] = await dao.getMetroFutureStopTimesByTripId(trip.TRIP_ID, time_now, time_end);
+    }
+  }
+
+  console.log(tripStopTimes);
+
+  /*
+  for (const stop_id of stop_ids) {
+    let stop = (await dao.getMetroStops("STOP_ID = '" + stop_id + "'"))[0];
+    let route = (await dao.getMetroRoutesByStopId(stop_id))[0];
+    let stopTimes = await dao.getMetroFutureStopTimesByStopId(stop_id, time_now, time_end);
+    let activeTrips = await dao.getMetroTripsByRouteIdAndActiveCalendarList(route.ROUTE_ID, calendarList);
+
+    console.log(route);
+
+    let activeTripIds = [];
+    
+    for (const tripsDb of activeTrips) {
+      activeTripIds.push(tripsDb.TRIP_ID);
+    }
+    
+    //TODO: Checkear erores
+    stopTimes = await stopTimes.filter(stopTime => activeTripIds.includes(stopTime.TRIP_ID));
+
+    stops = stops.concat(stop);
+    stopTrips[stop_id] = activeTrips;
+    stopStopTimes[stop_id] = stopTimes;
+  }
+  */
+
+  res.render('paradaMetro', {stops: stops, stopRoutes: stopRoutes, routeTrips: routeTrips, tripStopTimes: tripStopTimes});
 });
 
 router.get('/metro/planos', function(req, res, next) {

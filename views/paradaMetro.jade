@@ -1,6 +1,6 @@
 - css_title= "paradaMetro"
 
-include head.jade
+include head.jade 
   body
     include header.jade 
     .body 
@@ -8,21 +8,28 @@ include head.jade
         .body-child-superior
           .datosParada
             .nombreParada-padre
-              h1 Titulo
+              h1 #{stops[0].STOP_NAME}
             .numerosLineas
-                .numLinea-padre 
-                  p 3
+              each stop in stops
+                each route in stopRoutes[stop.STOP_ID]
+                  .numLinea-padre 
+                    span(style="background-color: \##{route.ROUTE_COLOR};") #{route.ROUTE_SHORT_NAME}
 
         .body-child-inferior 
-          .text-superior  
+          .text-superior
             p Tiempo real
-          .card-inferior
-            .card-inferior-left
-              .numLinea2
-                p n1
-            .card-inferior-right
-              .nombreParada-parent
-                p.nombreParada Humanes
-              .container-tiempos 
-                .tiempo-parent
-                  p.tiempo 10 min
+          each stop in stops
+            each route in stopRoutes[stop.STOP_ID]
+              each trip in routeTrips[route.ROUTE_ID]
+                .card-inferior
+                  .card-inferior-left
+                    .numLinea2(style="background-color: \##{route.ROUTE_COLOR};")
+                      p #{route.ROUTE_SHORT_NAME}
+                  .card-inferior-right
+                    .nombreParada-parent
+                      p.nombreParada #{trip.TRIP_SHORT_NAME}
+                    .container-tiempos
+                      each stop_time in tripStopTimes[trip.TRIP_ID]
+                        .tiempo-parent
+                          p.tiempo #{stop_time.DEPARTURE_TIME}
+    //script(src="/js/relative_times.js")

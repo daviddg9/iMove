@@ -65,8 +65,8 @@ mycursor.execute("DELETE FROM RENFE_STOPS WHERE STOP_ID NOT IN (SELECT RENFE_STO
 mydb.commit()
 print(f"Renfe_Stops limpiada! ({mycursor.rowcount})")
 
-# Limpieza de Metro_Stops. Elimina todas las paradas no madrileñas
-mycursor.execute("DELETE FROM METRO_STOPS WHERE STOP_ID LIKE 'acc%'")
+# Limpieza de Metro_Stops. Dejamos solo las paradas, y eliminamos estaciones y accesos.
+mycursor.execute("DELETE FROM METRO_STOPS WHERE STOP_ID LIKE 'acc%' OR STOP_ID LIKE 'est%'")
 mydb.commit()
 print(f"Metro_Stops limpiada! ({mycursor.rowcount})")
 

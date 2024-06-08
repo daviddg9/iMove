@@ -261,7 +261,7 @@ class DAO {
 
                 if (stopNameNorm != stopCompNameNorm)
                     break;
-                
+
                 compId += "+" + stopComp.STOP_ID;
                 listaStops.splice(j, 1);
                 j--;
@@ -350,6 +350,38 @@ class DAO {
         return listaRoutes;
     }
 
+    async getMetroRoutesSingleByStopId(stopId) {
+        if (stopId == "") {
+            console.log("El STOP_NAME no puede estar vacío. (stopId)");
+            return [];
+        }
+        if (this.connection == null)
+            await this.connect()
+        let sql = "SELECT * FROM METRO_ROUTES " + 
+        "WHERE METRO_ROUTES.ROUTE_ID IN ( " + 
+            "SELECT ROUTE_ID FROM METRO_STOP_ROUTES " + 
+            "WHERE STOP_ID = '" + stopId + "'" +
+        ");";
+        let listaRoutes = await this.execQueryToObjectList(sql, Route);
+        //TODO: Checkear errores
+
+        // for (let i = listaRoutes.length - 1; i > 0; i--) {
+        //     const route_og = listaRoutes[i];
+        //     let del = false;
+        //     for (let j = i - 1; j >= 0; j--) {
+        //         const route_compare = listaRoutes[j];
+        //         if (route_og.ROUTE_SHORT_NAME == route_compare.ROUTE_SHORT_NAME) {
+        //             del = true;
+        //             break;
+        //         }
+        //     }
+        //     if (del)
+        //         listaRoutes.splice(i, 1);
+        // }
+
+        return listaRoutes;
+    }
+
     async getMetroFutureStopTimesByStopId(stopId, timeNow, timeEnd) {
         if (stopId == "") {
             console.log("El STOP_ID no puede estar vacío. (getMetroFutureStopTimesByStopId)");
@@ -367,6 +399,30 @@ class DAO {
             await this.connect()
         let sql = "SELECT TRIP_ID, STOP_ID, ARRIVAL_TIME, DEPARTURE_TIME, STOP_SEQUENCE FROM METRO_STOP_TIMES " + 
         "WHERE STOP_ID = '" + stopId + "' AND DEPARTURE_TIME >= TIME('" + timeNow + "') AND ARRIVAL_TIME <= TIME('" + timeEnd + "') " +
+        "ORDER BY DEPARTURE_TIME";
+        let listaStopTimes = await this.execQueryToObjectList(sql, StopTime);
+        //TODO: Checkear errores
+
+        return listaStopTimes;
+    }
+
+    async getMetroFutureStopTimesByTripId(tripId, timeNow, timeEnd) {
+        if (tripId == "") {
+            console.log("El STOP_ID no puede estar vacío. (getMetroFutureStopTimesByStopId)");
+            return [];
+        }
+        if (timeNow == "") {
+            console.log("El timeNow no puede estar vacío. (getMetroFutureStopTimesByStopId)");
+            return [];
+        }
+        if (timeEnd == "") {
+            console.log("El timeEnd no puede estar vacío. (getMetroFutureStopTimesByStopId)");
+            return [];
+        }
+        if (this.connection == null)
+            await this.connect()
+        let sql = "SELECT TRIP_ID, STOP_ID, ARRIVAL_TIME, DEPARTURE_TIME, STOP_SEQUENCE FROM METRO_STOP_TIMES " + 
+        "WHERE TRIP_ID = '" + tripId + "' AND DEPARTURE_TIME >= TIME('" + timeNow + "') AND ARRIVAL_TIME <= TIME('" + timeEnd + "') " +
         "ORDER BY DEPARTURE_TIME";
         let listaStopTimes = await this.execQueryToObjectList(sql, StopTime);
         //TODO: Checkear errores
