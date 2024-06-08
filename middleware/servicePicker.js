@@ -7,7 +7,7 @@ const servicePicker = async (req, res, next) => {
         next();
         return;
     }
-    
+
     let dotenv = req.app.get("dotenv");
     let dao = new DAO(dotenv["DB_HOST"], dotenv["DB_USER"], dotenv["DB_PASS"], dotenv["DB_NAME"]);
 
@@ -42,7 +42,17 @@ const servicePicker = async (req, res, next) => {
             break;
     }
 
-    let calendarEntries = await dao.getRenfeCalendarEntriesByDayAndDate(day, date_ymd);
+    let calendarEntries = [];
+
+    if (req.url.indexOf("renfe")) {
+        calendarEntries = await dao.getRenfeCalendarEntriesByDayAndDate(day, date_ymd);
+    }
+    else if (req.url.indexOf("metro")) {
+        calendarEntries = await dao.getMetroCalendarEntriesByDay(day);
+    }
+    else if (req.url.indexOf("interurbanos")) {
+        // calendarEntries = await dao.getInterurbanosCalendarEntriesByDayAndDate(day, date_ymd);
+    }
 
     // for (const calendarEntry of calendarEntries) {
     //     console.log(calendarEntry.toString());

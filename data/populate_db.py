@@ -19,7 +19,7 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
-prefix = '/home/sdiezg/Projects/iMove/data/'
+prefix = dotenv["PROJECT_PATH"] + dotenv["DATA_SUBPATH"]
 dirs = ['metro', 'renfe']
 categories = ['routes', 'stops', 'calendar', 'trips', 'stop_times', 'frequencies']
 insert_headers = {}
@@ -58,11 +58,17 @@ for dir_name in dirs:
             continue
         read_data(cat, filename)
         insert_into_db(dir_name.upper(), cat.upper(), insert_headers[cat], insert_data[cat])
+    print(f"\nDatos de {dir_name.upper()} Insertados con éxito!\n")
 
-# Limpieza de Stops. Elimina todas las paradas no madrileñas
+# Limpieza de Renfe_Stops. Elimina todas las paradas no madrileñas
 mycursor.execute("DELETE FROM RENFE_STOPS WHERE STOP_ID NOT IN (SELECT RENFE_STOP_TIMES.STOP_ID FROM RENFE_STOP_TIMES INNER JOIN RENFE_TRIPS ON RENFE_STOP_TIMES.TRIP_ID = RENFE_TRIPS.TRIP_ID INNER JOIN RENFE_ROUTES ON RENFE_TRIPS.ROUTE_ID = RENFE_ROUTES.ROUTE_ID)")
 mydb.commit()
 print(f"Renfe_Stops limpiada! ({mycursor.rowcount})")
+
+# Limpieza de Metro_Stops. Elimina todas las paradas no madrileñas
+mycursor.execute("DELETE FROM METRO_STOPS WHERE STOP_ID LIKE 'acc%'")
+mydb.commit()
+print(f"Metro_Stops limpiada! ({mycursor.rowcount})")
 
 # Poblar la tabla de renfe_stop_routes, que agilizará todas nuestras queries en la aplicación
 stop_ids = []

@@ -261,6 +261,7 @@ class DAO {
 
                 if (stopNameNorm != stopCompNameNorm)
                     break;
+                
                 compId += "+" + stopComp.STOP_ID;
                 listaStops.splice(j, 1);
                 j--;
@@ -408,21 +409,15 @@ class DAO {
         return listaTrips;
     }
 
-    async getMetroCalendarEntriesByDayAndDate(day_of_week, date_ymd) {
+    async getMetroCalendarEntriesByDay(day_of_week) {
         if (day_of_week == "") {
             console.log("El day_of_week no puede estar vacío. (getMetroCalendarEntriesByDayAndDate)");
-            return [];
-        }
-        if (date_ymd == "") {
-            console.log("El date_ymd no puede estar vacío. (getMetroCalendarEntriesByDayAndDate)");
             return [];
         }
         if (this.connection == null)
             await this.connect()
         let sql = "SELECT * FROM METRO_CALENDAR " + 
-        "WHERE " + day_of_week + " = '1' AND " +
-        "CAST(START_DATE AS SIGNED) <= " + date_ymd + " AND " + 
-        "CAST(END_DATE AS SIGNED) >= " + date_ymd; 
+        "WHERE " + day_of_week + " = '1'";
         let listaCalendars = await this.execQueryToObjectList(sql, Calendar);
         //TODO: Checkear errores
         return listaCalendars;

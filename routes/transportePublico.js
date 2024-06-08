@@ -32,7 +32,7 @@ router.get('/renfe/paradaRenfe', async function(req, res, next) {
   let calendarList = req.body.calendarList;
   let dotenv = req.app.get("dotenv");
   let dao = new DAO(dotenv["DB_HOST"], dotenv["DB_USER"], dotenv["DB_PASS"], dotenv["DB_NAME"]);
-  let stops = await dao.getRenfeStops("STOP_ID = " + stop_id);
+  let stops = await dao.getRenfeStops("STOP_ID = '" + stop_id + "'");
   let routes = await dao.getRenfeRoutesByStopId(stop_id);
   let routesSingle = await dao.getRenfeRoutesSingleByStopId(stop_id);
 
@@ -79,16 +79,19 @@ router.get('/metro', async function(req, res, next) {
     stopRoutes[stop.STOP_NAME] = await dao.getMetroRoutesSingleByStopName(stop.STOP_NAME);
   }
 
-  //
-  console.log(stopRoutes);
+  // Mostramos solo las paradas que pertenecen a una ruta, ya que POR ALGUNA RAZÓN, los datos
+  // de metro incluyen en paradas cosas como entradas a las estaciones, ascensores, etc.
   stops = stops.filter((stop) => stopRoutes[stop.STOP_NAME].length > 0);
-  //
 
   res.render('metro', {stops: stops, stopRoutes: stopRoutes});
 });
 
-router.get('/metro/paradaMetro', function(req, res, next) {
+router.get('/metro/paradaMetro', async function(req, res, next) {
+  let stop_ids = req.query.stop_id.split("+");
 
+  for (const stop_id of stop_ids) {
+    
+  }
 
   res.render('paradaMetro', {});
 });
